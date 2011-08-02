@@ -1,0 +1,13 @@
+# id, store, qty, description
+Twinkes,Cleveland,100,Yummy
+Ho-Hos,Cleveland,150,Also Delicious
+Swiffer Wet-Jet,Cleveland,100,
+Hubba-Bubba Grape,Cincinnati,1000,
+UBuyIt Flour Tortilla Shells,Dayton,1500,
+UBuyIt Corn Tortilla Shells,Dayton,1250,
+Land-o-Lakes Yellow American Cheese,Dayton,101,
+Land-o-Lakes White American Cheese,Dayton,201,
+Land-o-Lakes Cheddar Cheese,Dayton,101,
+Land-o-Lakes CheddarJack American Cheese,Dayton,101,
+Land-o-Lakes Feta Cheese,Dayton,111,
+Land-o-Lakes Gorgonzola Cheese,Dayton,121,

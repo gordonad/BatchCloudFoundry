@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_com_gordondickens_bcf_entity_ProductTrx" object="${producttrx}" path="/producttrxes" z="aooKLt+zswYZ9gUqQwy0acXU5H8=">
+        <field:display field="product" id="s_com_gordondickens_bcf_entity_ProductTrx_product" object="${producttrx}" z="1Oigqccc94/5vUjoygZmQpz8Q4Y="/>
+        <field:display field="store" id="s_com_gordondickens_bcf_entity_ProductTrx_store" object="${producttrx}" z="Mrc/GlO0P0pEOcf6TLHJ/YhMKJU="/>
+        <field:display field="quantity" id="s_com_gordondickens_bcf_entity_ProductTrx_quantity" object="${producttrx}" z="4cWhS+6WzKYZrXFhlDYZ6cI5OLs="/>
+        <field:display field="price" id="s_com_gordondickens_bcf_entity_ProductTrx_price" object="${producttrx}" z="TStib0Zx4jCcZhfGRZgkDOl2Fnc="/>
+        <field:display field="trxDate" id="s_com_gordondickens_bcf_entity_ProductTrx_trxDate" object="${producttrx}" z="CZdcSPe2hYAceBevr+TGlIsW9Y8="/>
+        <field:display field="comment" id="s_com_gordondickens_bcf_entity_ProductTrx_comment" object="${producttrx}" z="Zzp32F2tVVG7bu0w2kAQ0r+zRD8="/>
+    </page:show>
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_gordondickens_bcf_entity_Product" items="${products}" z="qgjsFJmtR+iRCnFRrEb32ou8cd8=">
+        <table:table data="${products}" id="l_com_gordondickens_bcf_entity_Product" path="/products" z="EbZSVAnkOvcu0esLUIoiBfXNLjs=">
+            <table:column id="c_com_gordondickens_bcf_entity_Product_productId" property="productId" z="KWJjfkJDPDY3yE/yeBEpxujkKd0="/>
+            <table:column id="c_com_gordondickens_bcf_entity_Product_store" property="store" z="ccQpPJz1v+Tp3N/jBIaS3wbxCdw="/>
+            <table:column id="c_com_gordondickens_bcf_entity_Product_quantity" property="quantity" z="kqZ/jn+PqVn15B0fbx2aZXaXejA="/>
+            <table:column id="c_com_gordondickens_bcf_entity_Product_description" property="description" z="c4/gV8GPfMFdjtjjlzZIjiBDLrk="/>
+        </table:table>
+    </page:list>
+</div>
