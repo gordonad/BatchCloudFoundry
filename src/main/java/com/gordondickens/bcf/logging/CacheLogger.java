@@ -1,4 +1,4 @@
-package com.gordondickens.bcf.gemfire;
+package com.gordondickens.bcf.logging;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

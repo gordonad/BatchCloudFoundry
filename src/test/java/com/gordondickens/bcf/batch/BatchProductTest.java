@@ -41,10 +41,11 @@ public class BatchProductTest {
 		try {
 			logger.debug("Begin Testing File Loader");
 			JobExecution exec = jobLauncherTestUtils.launchJob();
-			Assert.assertTrue("Product Repository MUST have records", repository.count() > 0);
+			Assert.assertTrue("Product Repository MUST have records",
+					repository.count() > 0);
 			List<Product> products = repository.findAllProducts();
-			Assert.assertNotNull("List of Products MUST exist",products);
-			for (Product p: products) {
+			Assert.assertNotNull("List of Products MUST exist", products);
+			for (Product p : products) {
 				logger.debug("Retrieved Product {}", p);
 			}
 			Assert.assertEquals(BatchStatus.COMPLETED, exec.getStatus());

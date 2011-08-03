@@ -75,10 +75,11 @@ public class ProductTrxController {
 			Model uiModel) {
 		if (page != null || size != null) {
 			int sizeNo = size == null ? 10 : size.intValue();
-			uiModel.addAttribute("producttrxes", repository.findProductTrxEntries());
-					// TODO: add pagination
-//					.findProductTrxEntries(page == null ? 0
-//							: (page.intValue() - 1) * sizeNo, sizeNo));
+			uiModel.addAttribute("producttrxes",
+					repository.findProductTrxEntries());
+			// TODO: add pagination
+			// .findProductTrxEntries(page == null ? 0
+			// : (page.intValue() - 1) * sizeNo, sizeNo));
 			float nrOfPages = (float) repository.count() / sizeNo;
 			uiModel.addAttribute(
 					"maxPages",
@@ -132,7 +133,7 @@ public class ProductTrxController {
 	@ModelAttribute("producttrxes")
 	public Collection<ProductTrx> populateProductTrxes() {
 		return repository.findProductTrxEntries();
-		
+
 	}
 
 	String encodeUrlPathSegment(String pathSegment,

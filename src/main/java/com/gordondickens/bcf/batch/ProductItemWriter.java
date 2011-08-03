@@ -26,12 +26,12 @@ public class ProductItemWriter implements ItemWriter<Product> {
 			logger.debug("***** About to Persist {}", product);
 			repository.save(product);
 		}
-//		if (product != null) {
-//			try {
-//				repository.flush();
-//			} finally {
-//				repository.clear();
-//			}
-//		}
+		// if (product != null) {
+		// try {
+		// repository.flush();
+		// } finally {
+		// repository.clear();
+		// }
+		// }
 	}
 }

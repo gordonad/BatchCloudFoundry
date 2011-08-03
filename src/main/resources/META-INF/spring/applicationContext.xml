@@ -62,7 +62,7 @@
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="generateDdl" value="true" />
-				<property name="database" value="HSQL" />
+				<property name="database" value="${database.vendor}" />
 			</bean>
 		</property>
 		<property name="jpaProperties">
@@ -74,14 +74,7 @@
 		</property>
 	</bean>
 
-	<!-- <bean
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		id="entityManagerFactory">
-		<property name="persistenceUnitName" value="persistenceUnit" />
-		<property name="dataSource" ref="dataSource" />
-		</bean> -->
-
-	<jdbc:initialize-database>
+	<jdbc:initialize-database ignore-failures="ALL">
 		<jdbc:script location="classpath:batch-hsql-ddl.sql" />
 	</jdbc:initialize-database>
 </beans>
