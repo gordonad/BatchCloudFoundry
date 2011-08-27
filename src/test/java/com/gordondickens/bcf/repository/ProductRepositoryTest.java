@@ -1,9 +1,8 @@
 package com.gordondickens.bcf.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,6 +26,7 @@ public class ProductRepositoryTest {
 	@Autowired
 	ProductRepository repository;
 
+	@Ignore
 	@Test
 	public void testInsert() {
 		Product product = new Product();

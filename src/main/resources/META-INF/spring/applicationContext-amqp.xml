@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.1.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!--bcf.jobRequestQueue=bcf.request.queue -->
+	<!--bcf.jobResponseQueue=bcf.response.queue -->
+	<!--bcf.jobErrorQueue=bcf.error.queue -->
+
+	<int:message-history />
+
+	<rabbit:connection-factory id="rabbitConnectionFactory"
+		username="${rabbit.username}" password="${rabbit.password}" host="${rabbit.host:5672}"
+		port="${rabbit.port}" channel-cache-size="${rabbit.channel.cache.size:1}"
+		virtual-host="${rabbit.virtual.host:/}" />
+
+	<!-- *****************************************************
+		Set up JMX Management
+		@See org.springframework.amqp.rabbit.core.RabbitAdmin
+		***************************************************** -->
+	<rabbit:admin id="rabbitAdmin" connection-factory="rabbitConnectionFactory"
+		auto-startup="true" />
+
+	<rabbit:direct-exchange name="${bcf.message.exchange}">
+		<rabbit:bindings>
+			<rabbit:binding queue="${bcf.jobRequestQueue}"
+				key="${bcf.message.routing.key}" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<rabbit:template id="rabbitTemplate"
+		queue="${bcf.jobRequestQueue}" connection-factory="rabbitConnectionFactory"
+		routing-key="${bcf.message.routing.key}" reply-timeout="1000" />
+
+	<rabbit:queue id="rabbitRequestQueue" name="${bcf.jobRequestQueue}" />
+	<rabbit:queue id="rabbitResponseQueue" name="${bcf.jobResponseQueue}" />
+	<rabbit:queue id="rabbitErrorQueue" name="${bcf.jobErrorQueue}" />
+
+	<!-- *** STEP 1 *** Gateway receives msg from code -->
+	<int:gateway id="rabbitGateway" default-request-channel="requestChannel"
+		service-interface="com.gordondickens.bcf.rabbit.RabbitGateway"
+		default-reply-channel="responseChannel" error-channel="errorChannel"
+		default-reply-timeout="${bcf.responseTimeout}"
+		default-request-timeout="${bcf.requestTimeout}" />
+
+	<!-- *** STEP 2 *** Gateway puts message on "requestChannel" -->
+	<int:channel id="requestChannel">
+		<int:interceptors>
+			<int:wire-tap channel="msgLogger" />
+		</int:interceptors>
+	</int:channel>
+
+	<!-- *** Response *** Returned expected on "responseChannel" -->
+	<int:channel id="responseChannel">
+		<int:queue />
+		<int:interceptors>
+			<int:wire-tap channel="msgLogger" />
+		</int:interceptors>
+	</int:channel>
+	<int:logging-channel-adapter id="msgLogger"
+		level="DEBUG" log-full-message="true" />
+
+	<!-- *** Error Response *** Returned expected on "errorChannel" -->
+	<int:channel id="errorChannel">
+		<int:interceptors>
+			<int:wire-tap channel="errorLogger" />
+		</int:interceptors>
+	</int:channel>
+
+
+	<!-- *** STEP 3 *** AMQP Gateway sends message from "requestChannel" -->
+	<!-- Rabbit Gateways (instead of channel adapters) for Remote Messaging
+		- gDickens 11-Aug-11 -->
+	<amqp:outbound-gateway request-channel="requestChannel"
+		reply-channel="responseChannel" amqp-template="rabbitTemplate"
+		exchange-name="${bcf.message.exchange}" routing-key="${bcf.message.routing.key}"
+		order="1" />
+
+	<!-- *** Error Response *** AMQP Gateway processes messages from the "Error Queue" -->
+	<amqp:inbound-gateway request-channel="errorLogger"
+		connection-factory="rabbitConnectionFactory" queue-names="${bcf.jobErrorQueue}" />
+	<int:logging-channel-adapter id="errorLogger"
+		level="DEBUG" log-full-message="true" />
+
+	<!--<rabbit:queue id="rabbitTraceQueue" name="amq.rabbitmq.trace"/> -->
+	<!--<rabbit:queue id="rabbitLogQueue" name="amq.rabbitmq.log"/> -->
+</beans>
