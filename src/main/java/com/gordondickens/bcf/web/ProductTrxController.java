@@ -53,7 +53,7 @@ public class ProductTrxController {
 	@RequestMapping(params = "form", method = RequestMethod.GET)
 	public String createForm(Model uiModel) {
 		uiModel.addAttribute("productTrx", new ProductTrx());
-		List dependencies = new ArrayList();
+		List<String[]> dependencies = new ArrayList<String[]>();
 		if (repository.count() == 0) {
 			dependencies.add(new String[] { "product", "products" });
 		}

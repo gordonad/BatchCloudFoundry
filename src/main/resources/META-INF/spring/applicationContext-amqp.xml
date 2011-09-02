@@ -82,9 +82,10 @@
 		order="1" />
 
 	<!-- *** Error Response *** AMQP Gateway processes messages from the "Error Queue" -->
-	<amqp:inbound-gateway request-channel="errorLogger"
+<!-- 	<amqp:inbound-gateway request-channel="errorLogger"
 		connection-factory="rabbitConnectionFactory" queue-names="${bcf.jobErrorQueue}" />
-	<int:logging-channel-adapter id="errorLogger"
+ -->
+ 	<int:logging-channel-adapter id="errorLogger"
 		level="DEBUG" log-full-message="true" />
 
 	<!--<rabbit:queue id="rabbitTraceQueue" name="amq.rabbitmq.trace"/> -->

@@ -1,6 +1,6 @@
 package com.gordondickens.bcf.batch;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -35,11 +35,8 @@ import org.springframework.batch.core.step.tasklet.TaskletStep;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.separator.DefaultRecordSeparatorPolicy;
-import org.springframework.batch.item.file.separator.RecordSeparatorPolicy;
-import org.springframework.batch.item.file.separator.SimpleRecordSeparatorPolicy;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.support.PassThroughItemProcessor;
 import org.springframework.batch.repeat.policy.SimpleCompletionPolicy;
@@ -51,7 +48,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.task.SyncTaskExecutor;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-import com.gordondickens.bcf.config.ProductJobConfig;
 import com.gordondickens.bcf.entity.Product;
 
 // This is a Unit Test, do not include Spring Context Config
@@ -61,7 +57,7 @@ public class BatchProductTest {
 
 	private JobLauncherTestUtils jobLauncherTestUtils;
 	private SimpleJobRepository jobRepository;
-	private ProductJobConfig jobConfig;
+	// private ProductJobConfig jobConfig;
 	private DataSource dataSource;
 	private DataSourceTransactionManager transactionManager;
 	private ExecutionContext executionContext;
@@ -70,9 +66,9 @@ public class BatchProductTest {
 	public void beforeEachTest() {
 		logger.debug("Before Test");
 
-		dataSource = (DataSource) Mockito.mock(DataSource.class);
-		Connection connection = (Connection) Mockito.mock(Connection.class);
-		DatabaseMetaData databaseMetaData = (DatabaseMetaData) Mockito
+		dataSource = Mockito.mock(DataSource.class);
+		Connection connection = Mockito.mock(Connection.class);
+		DatabaseMetaData databaseMetaData = Mockito
 				.mock(DatabaseMetaData.class);
 		try {
 			Mockito.stub(dataSource.getConnection()).toReturn(connection);
@@ -96,8 +92,8 @@ public class BatchProductTest {
 				jobExecutionDao, stepExecutionDao, ecDao);
 
 		jobLauncherTestUtils.setJobRepository(jobRepository);
-		jobConfig = new ProductJobConfig();
-		jobConfig.setJobRepository(jobRepository);
+		// jobConfig = new ProductJobConfig();
+		// jobConfig.setJobRepository(jobRepository);
 		executionContext = new ExecutionContext();
 	}
 

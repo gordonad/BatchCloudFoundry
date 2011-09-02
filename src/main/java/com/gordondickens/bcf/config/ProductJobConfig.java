@@ -40,8 +40,10 @@ public class ProductJobConfig {
 
 	@Autowired
 	JobRepository jobRepository;
+
 	@Autowired
 	DataSource dataSource;
+
 	@Autowired
 	PlatformTransactionManager transactionManager;
 

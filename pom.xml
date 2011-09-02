@@ -13,7 +13,8 @@
 	<properties>
 		<aspectj.version>1.6.11</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
-		<cloudfoundry.version>0.7.0</cloudfoundry.version>
+		<!-- <cloudfoundry.version>0.7.1</cloudfoundry.version> -->
+		<cloudfoundry.version>0.7.2-BUILD-SNAPSHOT</cloudfoundry.version>
 		<commons.beanutils.version>1.8.3</commons.beanutils.version>
 		<commons.codec.version>1.4</commons.codec.version>
 		<commons.collections.version>3.2.1</commons.collections.version>
@@ -36,7 +37,8 @@
 		<hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
 		<hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
 		<hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
-		<hibernate.version>3.6.6.Final</hibernate.version>
+		<hibernate.version>3.6.7.Final</hibernate.version>
+		<hsqldb.version>2.2.4</hsqldb.version>
 		<icu4j.version>4.8.1</icu4j.version>
 		<jasypt.version>1.8</jasypt.version>
 		<java.version>1.6</java.version>
@@ -68,7 +70,7 @@
 		<maven.source.plugin>2.1.2</maven.source.plugin>
 		<maven.surefire.plugin>2.9</maven.surefire.plugin>
 		<maven.test.failure.ignore>false</maven.test.failure.ignore>
-		<maven.test.skip>false</maven.test.skip>
+		<maven.test.skip>true</maven.test.skip>
 		<maven.version.range>[2.2.1,3.1.0)</maven.version.range>
 		<maven.jetty.plugin>8.0.0.M2</maven.jetty.plugin>
 		<maven.war.plugin>2.1.1</maven.war.plugin>
@@ -76,6 +78,7 @@
 		<mysql.version>5.1.17</mysql.version>
 		<outputFile>buildResults.txt</outputFile>
 		<plexus.utils.version>3.0</plexus.utils.version>
+		<postgresql.version>9.0-801.jdbc4</postgresql.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<rabbit.version>2.5.1</rabbit.version>
 		<redis.version>2.0.0</redis.version>
@@ -207,11 +210,27 @@
 			<version>${hibernate.validator.version}</version>
 		</dependency>
 
+		<!-- HSQL Local DB -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb.version}</version>
+		</dependency>
+
 		<!-- MYSQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Postgresql -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Mockito -->
@@ -258,7 +277,11 @@
 			<artifactId>jta</artifactId>
 			<version>${jta.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
 		<!-- Commons -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -335,7 +358,7 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -343,6 +366,17 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>${maven.resources.plugin}</version>
 			</plugin>
+
+			<!-- Failsafe Plugin for Integration Tests
+				File Patterns: "**/IT*.java", "**/*IT.java", "**/*ITCase.java" -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven.failsafe.plugin}</version>
+			</plugin>
+
+			<!-- SureFire Plugin for Unit Tests
+				File Patterns: "**/Test*.java", "**/*Test.java", "**/*TestCase.java" -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -738,13 +772,16 @@
 				<artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
 				<version>${geronimo.jee.version}</version>
 			</dependency>
-			<!-- SPRING, SPRING, SPRINGITY SPRING -->
+
 			<!-- cloudfoundry -->
 			<dependency>
 				<groupId>org.cloudfoundry</groupId>
 				<artifactId>cloudfoundry-runtime</artifactId>
 				<version>${cloudfoundry.version}</version>
 			</dependency>
+
+			<!-- SPRING, SPRING, SPRINGITY SPRING -->
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-beans</artifactId>
