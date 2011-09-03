@@ -3,6 +3,7 @@ package com.gordondickens.bcf.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -23,7 +24,6 @@ import org.springframework.batch.item.support.PassThroughItemProcessor;
 import org.springframework.batch.repeat.policy.SimpleCompletionPolicy;
 import org.springframework.batch.repeat.support.RepeatTemplate;
 import org.springframework.batch.repeat.support.TaskExecutorRepeatTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -35,16 +35,18 @@ import com.gordondickens.bcf.entity.Product;
 
 @Configuration
 public class ProductJobConfig {
+	private static final String IMPORT_PRODUCTS = "importProducts";
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(ProductJobConfig.class);
 
-	@Autowired
+	@Inject
 	JobRepository jobRepository;
 
-	@Autowired
+	@Inject
 	DataSource dataSource;
 
-	@Autowired
+	@Inject
 	PlatformTransactionManager transactionManager;
 
 	@Bean
@@ -100,7 +102,7 @@ public class ProductJobConfig {
 
 		// Create Tasklet Step
 		TaskletStep step = simpleStep();
-		step.setName("importProducts");
+		step.setName(IMPORT_PRODUCTS);
 
 		// TODO - Determine why repeat template is set on TaskletStep AND
 		// ChunkProvider

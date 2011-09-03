@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property resource="../logconfig/logging.properties" />
+	<property resource="logconfig/logging.properties" />
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%-5level %logger{0} - %msg%n%n</pattern>
+			<pattern>%-5level %logger{0} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -13,7 +13,8 @@
 		<file>${log.dir}/${log.file}.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${log.dir}/${log.file}.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+			<fileNamePattern>${log.dir}/${log.file}.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern>
 
 			<!-- days of history to keep -->
 			<maxHistory>5</maxHistory>
@@ -25,8 +26,12 @@
 		</encoder>
 	</appender>
 
+	<logger name="org.cloudfoundry" level="trace" />
+
 	<logger name="com.gordondickens" level="debug" />
 	<logger name="org.springframework" level="warn" />
+
+	<logger name="org.springframework.beans.factory" level="debug" />
 
 	<logger name="com.springsource.batch" level="debug" />
 	<logger name="org.springframework.batch" level="debug" />

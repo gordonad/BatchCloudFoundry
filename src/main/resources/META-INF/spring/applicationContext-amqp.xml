@@ -3,14 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amqp="http://www.springframework.org/schema/integration/amqp"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp-2.1.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-2.1.xsd
 		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<!--bcf.jobRequestQueue=bcf.request.queue -->
-	<!--bcf.jobResponseQueue=bcf.response.queue -->
-	<!--bcf.jobErrorQueue=bcf.error.queue -->
+	<context:property-placeholder
+		location="classpath:META-INF/spring/amqp.properties" />
 
 	<int:message-history />
 
@@ -28,14 +29,13 @@
 
 	<rabbit:direct-exchange name="${bcf.message.exchange}">
 		<rabbit:bindings>
-			<rabbit:binding queue="${bcf.jobRequestQueue}"
-				key="${bcf.message.routing.key}" />
+			<rabbit:binding queue="${bcf.jobRequestQueue}" key="${bcf.message.routing.key}" />
 		</rabbit:bindings>
 	</rabbit:direct-exchange>
 
-	<rabbit:template id="rabbitTemplate"
-		queue="${bcf.jobRequestQueue}" connection-factory="rabbitConnectionFactory"
-		routing-key="${bcf.message.routing.key}" reply-timeout="1000" />
+	<rabbit:template id="rabbitTemplate" queue="${bcf.jobRequestQueue}"
+		connection-factory="rabbitConnectionFactory" routing-key="${bcf.message.routing.key}"
+		reply-timeout="1000" />
 
 	<rabbit:queue id="rabbitRequestQueue" name="${bcf.jobRequestQueue}" />
 	<rabbit:queue id="rabbitResponseQueue" name="${bcf.jobResponseQueue}" />
@@ -81,11 +81,13 @@
 		exchange-name="${bcf.message.exchange}" routing-key="${bcf.message.routing.key}"
 		order="1" />
 
-	<!-- *** Error Response *** AMQP Gateway processes messages from the "Error Queue" -->
-<!-- 	<amqp:inbound-gateway request-channel="errorLogger"
-		connection-factory="rabbitConnectionFactory" queue-names="${bcf.jobErrorQueue}" />
- -->
- 	<int:logging-channel-adapter id="errorLogger"
+	<!-- *** Error Response *** AMQP Gateway processes messages from the "Error
+		Queue" -->
+	<!-- <amqp:inbound-gateway request-channel="errorLogger"
+		connection-factory="rabbitConnectionFactory" queue-names="${bcf.jobErrorQueue}"
+		/>
+	-->
+	<int:logging-channel-adapter id="errorLogger"
 		level="DEBUG" log-full-message="true" />
 
 	<!--<rabbit:queue id="rabbitTraceQueue" name="amq.rabbitmq.trace"/> -->

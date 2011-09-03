@@ -3,11 +3,10 @@ package com.gordondickens.bcf.web;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,10 +21,9 @@ import com.gordondickens.bcf.entity.Product;
 import com.gordondickens.bcf.repository.ProductRepository;
 
 @RequestMapping("/products")
-@Controller
 public class ProductController {
 
-	@Autowired
+	@Inject
 	ProductRepository repository;
 
 	@RequestMapping(method = RequestMethod.POST)

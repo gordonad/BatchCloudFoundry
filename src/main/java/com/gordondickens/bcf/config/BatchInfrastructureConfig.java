@@ -3,6 +3,7 @@ package com.gordondickens.bcf.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.configuration.JobRegistry;
@@ -14,8 +15,6 @@ import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobOperator;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.JobRepositoryFactoryBean;
-import org.springframework.batch.core.step.tasklet.TaskletStep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
@@ -25,10 +24,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class BatchInfrastructureConfig {
 
-	@Autowired
+	@Inject
 	DataSource dataSource;
 
-	@Autowired
+	@Inject
 	PlatformTransactionManager transactionManager;
 
 	@Bean
@@ -81,7 +80,6 @@ public class BatchInfrastructureConfig {
 		bean.setJobRegistry(jobRegistry());
 		return bean;
 	}
-
 
 	@Bean
 	public MBeanExporter mBeanExporter() throws Exception {

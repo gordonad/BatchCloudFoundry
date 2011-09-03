@@ -17,10 +17,12 @@ public class CloudApplicationContextInitializer implements
 	public void initialize(ConfigurableApplicationContext applicationContext) {
 		CloudEnvironment env = new CloudEnvironment();
 		if (env.getInstanceInfo() != null) {
-			logger.info("cloud API: " + env.getCloudApiUri());
+			logger.info("Application running in cloud. API '{}'",
+					env.getCloudApiUri());
 			// System.out.println("cloud API: " + env.getCloudApiUri());
 			applicationContext.getEnvironment().setActiveProfiles(Env.CLOUD);
 		} else {
+			logger.info("Application running local");
 			applicationContext.getEnvironment().setActiveProfiles(Env.LOCAL);
 		}
 	}
