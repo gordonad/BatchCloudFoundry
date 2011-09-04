@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
-    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-    <jsp:output omit-xml-declaration="yes"/>
-    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
-        <menu:category id="c_item" z="jWO1pnucyLwI2bZuwfja4eCYsjU=">
-            <menu:item id="i_item_new" messageCode="global_menu_new" url="/items?form" z="I+/MpOYxZ47XKvsQW1PUi6uC060="/>
-            <menu:item id="i_item_list" messageCode="global_menu_list" url="/items?page=1&amp;size=${empty param.size ? 10 : param.size}" z="4RxBMvjr2gUD8qO0DTWmjd1SzS0="/>
-        </menu:category>
-        <menu:category id="c_product" z="vJ6efqiSxFssuvqFTsXpvZ3AvA8=">
-            <menu:item id="i_product_new" messageCode="global_menu_new" url="/products?form" z="Ezf8cTW61d2RkMNEcYkDJpG01kc="/>
-            <menu:item id="i_product_list" messageCode="global_menu_list" url="/products?page=1&amp;size=${empty param.size ? 10 : param.size}" z="kEeyCmUUYXShbDEWwOLheaAkM50="/>
-        </menu:category>
-        <menu:category id="c_producttrx" z="C0vH3kuZUh4o5g5crn+w0QwEgco=">
-            <menu:item id="i_producttrx_new" messageCode="global_menu_new" url="/producttrxes?form" z="DVE03hEMU2nLjtq8e06Rx+wmBUI="/>
-            <menu:item id="i_producttrx_list" messageCode="global_menu_list" url="/producttrxes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="+7tnjP75C/ZwpH5VwH6dBUugF5k="/>
-        </menu:category>
-    </menu:menu>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+		<menu:category id="c_product" z="vJ6efqiSxFssuvqFTsXpvZ3AvA8=">
+			<menu:item id="i_product_new" messageCode="global_menu_new"
+				url="/products?form" z="Ezf8cTW61d2RkMNEcYkDJpG01kc=" />
+			<menu:item id="i_product_list" messageCode="global_menu_list"
+				url="/products?page=1&amp;size=${empty param.size ? 10 : param.size}"
+				z="kEeyCmUUYXShbDEWwOLheaAkM50=" />
+		</menu:category>
+		<menu:category id="c_producttrx" z="C0vH3kuZUh4o5g5crn+w0QwEgco=">
+			<menu:item id="i_producttrx_new" messageCode="global_menu_new"
+				url="/producttrxes?form" z="DVE03hEMU2nLjtq8e06Rx+wmBUI=" />
+			<menu:item id="i_producttrx_list" messageCode="global_menu_list"
+				url="/producttrxes?page=1&amp;size=${empty param.size ? 10 : param.size}"
+				z="+7tnjP75C/ZwpH5VwH6dBUugF5k=" />
+		</menu:category>
+	</menu:menu>
 </div>

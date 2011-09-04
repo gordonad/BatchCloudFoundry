@@ -31,7 +31,9 @@ import com.gordondickens.bcf.web.ProductTrxController;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(excludeFilters = { @ComponentScan.Filter(Configuration.class) })
-@Import(BatchInfrastructureConfig.class)
+// excludeFilters = { @Filter(type = FilterType.ANNOTATION, value =
+// Configuration.class)
+@Import({ BatchInfrastructureConfig.class, ApplicationWebConfig.class })
 public abstract class ApplicationConfigCommon {
 
 	@SuppressWarnings("rawtypes")
