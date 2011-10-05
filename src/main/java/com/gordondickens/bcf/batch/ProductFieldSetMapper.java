@@ -9,7 +9,7 @@ import com.gordondickens.bcf.entity.Product;
 
 public class ProductFieldSetMapper implements FieldSetMapper<Product> {
 	private static final Logger logger = LoggerFactory.getLogger(ProductFieldSetMapper.class);
-	
+
 	@Override
 	public Product mapFieldSet(FieldSet fieldSet) {
 		Product product = new Product();

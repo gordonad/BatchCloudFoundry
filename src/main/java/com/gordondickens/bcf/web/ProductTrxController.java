@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import com.gordondickens.bcf.entity.ProductTrx;
 import com.gordondickens.bcf.repository.ProductRepository;
 import com.gordondickens.bcf.repository.ProductTrxRepository;
 
+@Controller
 @RequestMapping("/producttrxes")
 public class ProductTrxController {
 

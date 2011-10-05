@@ -12,16 +12,22 @@ import org.cloudfoundry.runtime.service.relational.MysqlServiceCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import com.gordondickens.bcf.services.Env;
 
 @Configuration
 @PropertySource("classpath:META-INF/spring/database.properties")
 @Profile(Env.CLOUD)
+@EnableTransactionManagement
+@ComponentScan(excludeFilters = { @ComponentScan.Filter(Configuration.class) })
 public class ApplicationConfigCloud extends ApplicationConfigCommon {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ApplicationConfigCloud.class);
@@ -79,7 +85,6 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
 	 * port="#{serviceProperties['db.port']}"
 	 * username="#{serviceProperties['db.username']}"
 	 * password="#{serviceProperties['db.password']}"/> -->
-	 *
 	 */
 
 	@Override

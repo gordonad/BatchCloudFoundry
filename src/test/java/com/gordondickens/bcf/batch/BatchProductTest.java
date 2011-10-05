@@ -169,6 +169,7 @@ public class BatchProductTest {
 		SimpleJob bean = new SimpleJob();
 		bean.setName("importProductsJob");
 		bean.setJobRepository(jobRepository);
+		bean.afterPropertiesSet();
 
 		// Create Steps
 		List<Step> steps = new ArrayList<Step>();
@@ -213,6 +214,7 @@ public class BatchProductTest {
 				"description" });
 		bean.setLineTokenizer(tokenizer);
 		bean.setFieldSetMapper(new ProductFieldSetMapper());
+		bean.afterPropertiesSet();
 		return bean;
 
 	}

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ import org.springframework.web.util.WebUtils;
 import com.gordondickens.bcf.entity.Product;
 import com.gordondickens.bcf.repository.ProductRepository;
 
+@Controller
 @RequestMapping("/products")
 public class ProductController {
 

@@ -1,4 +1,4 @@
-package com.gordondickens.bcf.config;
+package com.gordondickens.bcf.services;
 
 public final class Env {
 	public static final String LOCAL = "local";

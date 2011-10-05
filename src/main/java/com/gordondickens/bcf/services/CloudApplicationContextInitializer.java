@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.gordondickens.bcf.config.Env;
 
 public class CloudApplicationContextInitializer implements
 		ApplicationContextInitializer<ConfigurableApplicationContext> {
@@ -21,9 +20,11 @@ public class CloudApplicationContextInitializer implements
 					env.getCloudApiUri());
 			// System.out.println("cloud API: " + env.getCloudApiUri());
 			applicationContext.getEnvironment().setActiveProfiles(Env.CLOUD);
+			applicationContext.refresh();
 		} else {
 			logger.info("Application running local");
 			applicationContext.getEnvironment().setActiveProfiles(Env.LOCAL);
 		}
 	}
+
 }
