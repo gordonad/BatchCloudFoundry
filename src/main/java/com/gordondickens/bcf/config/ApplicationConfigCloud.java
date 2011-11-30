@@ -1,27 +1,22 @@
 package com.gordondickens.bcf.config;
 
-import java.sql.SQLException;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
+import com.gordondickens.bcf.services.Env;
 import org.cloudfoundry.runtime.env.ApplicationInstanceInfo;
 import org.cloudfoundry.runtime.env.CloudEnvironment;
-import org.cloudfoundry.runtime.env.CloudEnvironmentPropertiesFactoryBean;
+import org.cloudfoundry.runtime.env.CloudPropertiesFactoryBean;
+import org.cloudfoundry.runtime.env.MysqlServiceInfo;
 import org.cloudfoundry.runtime.service.relational.MysqlServiceCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.gordondickens.bcf.services.Env;
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:META-INF/spring/database.properties")
@@ -47,9 +42,9 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
 
 	@Bean
 	public Properties cloudEnvironment() {
-		CloudEnvironmentPropertiesFactoryBean cloudProps = new CloudEnvironmentPropertiesFactoryBean();
+		CloudPropertiesFactoryBean cloudProps = new CloudPropertiesFactoryBean();
 		CloudEnvironment cloudEnvironment = new CloudEnvironment();
-		cloudProps.setCloudEnv(cloudEnvironment);
+//		cloudProps.setCloudEnv(cloudEnvironment);
 		Properties props = null;
 		try {
 			ApplicationInstanceInfo appInfo = cloudEnvironment
@@ -61,7 +56,8 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
 			logger.debug(
 					"Cloud Environment Info: \n\tHost '{}', \n\tName '{}', \n\tInstance '{}', \n\tPort '{}', \n\tURIs '{}'",
 					appinfo);
-			cloudProps.setCloudEnv(cloudEnvironment);
+//			cloudProps.setCloudEnv(cloudEnvironment);
+            MysqlServiceInfo mysqlServiceInfo = new MysqlServiceInfo();
 			MysqlServiceCreator mysql = new MysqlServiceCreator(
 					cloudEnvironment);
 

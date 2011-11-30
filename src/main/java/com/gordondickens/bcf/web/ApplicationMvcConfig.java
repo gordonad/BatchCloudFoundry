@@ -1,7 +1,7 @@
 package com.gordondickens.bcf.web;
 
-import java.util.Properties;
-
+import com.gordondickens.bcf.entity.Product;
+import com.gordondickens.bcf.entity.ProductTrx;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -9,12 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceConfigurer;
-import org.springframework.web.servlet.config.annotation.ViewControllerConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -24,8 +19,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 
-import com.gordondickens.bcf.entity.Product;
-import com.gordondickens.bcf.entity.ProductTrx;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
@@ -97,21 +91,24 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Override
-	public void configureViewControllers(ViewControllerConfigurer configurer) {
-		// <mvc:view-controller path="/" view-name="welcome"/>
-		configurer.mapViewName("/", "index");
-		configurer.mapViewNameByConvention("/uncaughtException");
-		configurer.mapViewNameByConvention("/resourceNotFound");
-		configurer.mapViewNameByConvention("/dataAccessFailure");
-	}
+    public void addViewControllers(ViewControllerRegistry registry) {
+        // <mvc:view-controller path="/" view-name="welcome"/>
+        ViewControllerRegistration view = registry.addViewController("/");
+        view.setViewName("index");
+        registry.addViewController("/uncaughtException");
+        registry.addViewController("/resourceNotFound");
+        registry.addViewController("/dataAccessFailure");
+    }
+
 
 	@Override
-	public void configureInterceptors(InterceptorConfigurer configurer) {
-		configurer.addInterceptor(new ThemeChangeInterceptor());
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new ThemeChangeInterceptor());
 		LocaleChangeInterceptor locale = new LocaleChangeInterceptor();
 		locale.setParamName("lang");
-		configurer.addInterceptor(locale);
+		registry.addInterceptor(locale);
 	}
+
 
 	@Override
 	public void configureDefaultServletHandling(
@@ -120,9 +117,8 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Override
-	public void configureResourceHandling(ResourceConfigurer configurer) {
-		configurer.addPathMapping("/resources/**");
-		configurer.addResourceLocations("/", "/META-INF/web-resources/");
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**", "/", "/META-INF/web-resources/");
 	}
 
 	@Override
