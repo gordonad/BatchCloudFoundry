@@ -1,8 +1,6 @@
 package com.gordondickens.bcf.config;
 
 import com.gordondickens.bcf.services.Env;
-import org.cloudfoundry.runtime.env.ApplicationInstanceInfo;
-import org.cloudfoundry.runtime.env.CloudEnvironment;
 import org.cloudfoundry.runtime.env.CloudPropertiesFactoryBean;
 import org.cloudfoundry.runtime.env.MysqlServiceInfo;
 import org.cloudfoundry.runtime.service.relational.MysqlServiceCreator;
@@ -16,84 +14,81 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:META-INF/spring/database.properties")
 @Profile(Env.CLOUD)
 @EnableTransactionManagement
-@ComponentScan(excludeFilters = { @ComponentScan.Filter(Configuration.class) })
+@ComponentScan(excludeFilters = {@ComponentScan.Filter(Configuration.class)})
 public class ApplicationConfigCloud extends ApplicationConfigCommon {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ApplicationConfigCloud.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(ApplicationConfigCloud.class);
 
-	@Bean
-	public Properties serviceProperties() {
-		Properties props = new Properties();
-		props.put("url", url);
-		props.put("name", databaseName);
-		props.put("hostname", host);
-		props.put("port", port);
-		props.put("username", user);
-		props.put("password", password);
-		props.put("driver", driverClassName);
-		return props;
-	}
+    @Bean
+    public Properties serviceProperties() {
+        Properties props = new Properties();
+        props.put("url", url);
+        props.put("name", databaseName);
+        props.put("hostname", host);
+        props.put("port", port);
+        props.put("username", user);
+        props.put("password", password);
+        props.put("driver", driverClassName);
+        return props;
+    }
 
-	@Bean
-	public Properties cloudEnvironment() {
-		CloudPropertiesFactoryBean cloudProps = new CloudPropertiesFactoryBean();
-		CloudEnvironment cloudEnvironment = new CloudEnvironment();
-//		cloudProps.setCloudEnv(cloudEnvironment);
-		Properties props = null;
-		try {
-			ApplicationInstanceInfo appInfo = cloudEnvironment
-					.getInstanceInfo();
-			String[] appinfo = { appInfo.getHost(), appInfo.getName(),
-					(new Integer(appInfo.getInstanceIndex())).toString(),
-					(new Integer(appInfo.getPort())).toString(),
-					appInfo.getUris().toString() };
-			logger.debug(
-					"Cloud Environment Info: \n\tHost '{}', \n\tName '{}', \n\tInstance '{}', \n\tPort '{}', \n\tURIs '{}'",
-					appinfo);
-//			cloudProps.setCloudEnv(cloudEnvironment);
-            MysqlServiceInfo mysqlServiceInfo = new MysqlServiceInfo();
-			MysqlServiceCreator mysql = new MysqlServiceCreator(
-					cloudEnvironment);
+    @Bean
+    public Properties cloudEnvironment() throws Exception {
+        CloudPropertiesFactoryBean cloudPropertiesFactoryBean = new CloudPropertiesFactoryBean();
+        Properties properties = cloudPropertiesFactoryBean.getObject();
+        Map<String, Object> propertiesMap = new HashMap<String, Object>();
+        
+        try {
+            logger.debug("Cloud Environment Info:");
+            for (Object property : properties.keySet()) {
+                propertiesMap.put(property.toString(), properties.get(property));
+                logger.debug("\n\t'{}',='{}'",
+                        property.toString(), properties.get(property).toString());
+            }
 
-			logger.debug("MySQL driver class '{}', Validation query '{}' ",
-					mysql.getDriverClassName(), mysql.getValidationQuery());
+            MysqlServiceInfo mysqlServiceInfo = new MysqlServiceInfo(propertiesMap);
+            MysqlServiceCreator mysql = new MysqlServiceCreator();
 
-			props = cloudProps.getObject();
-		} catch (Exception e) {
-			logger.error("Error getting Properties from Cloud Environment", e);
-		}
-		logger.debug("Returning Cloud Environment Properties '{}'", props);
-		return props;
-	}
+            logger.debug("MySQL driver class '{}', Validation query '{}' ",
+                    mysql.getDriverClassName(), mysql.getValidationQuery());
 
-	/*
-	 * <cloud:service-properties id="serviceProperties" />
-	 *
-	 * <mongo:db-factory id="mongoDbFactory"
-	 * dbname="#{serviceProperties['db.name']}"
-	 * host="#{serviceProperties['db.hostname']}"
-	 * port="#{serviceProperties['db.port']}"
-	 * username="#{serviceProperties['db.username']}"
-	 * password="#{serviceProperties['db.password']}"/> -->
-	 */
+        } catch (Exception e) {
+            logger.error("Error getting Properties from Cloud Environment", e);
+        }
+        logger.debug("Returning Cloud Environment Properties '{}'", properties);
+        return properties;
+    }
 
-	@Override
-	protected DatabasePopulator databasePopulator(DataSource dataSource) {
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.setContinueOnError(true);
-		populator.addScript(new ClassPathResource("batch-mysql-ddl.sql"));
-		try {
-			populator.populate(dataSource.getConnection());
-		} catch (SQLException e) {
-			logger.error("Exception Populating Database", e);
-		}
-		return populator;
-	}
+    /*
+      * <cloud:service-properties id="serviceProperties" />
+      *
+      * <mongo:db-factory id="mongoDbFactory"
+      * dbname="#{serviceProperties['db.name']}"
+      * host="#{serviceProperties['db.hostname']}"
+      * port="#{serviceProperties['db.port']}"
+      * username="#{serviceProperties['db.username']}"
+      * password="#{serviceProperties['db.password']}"/> -->
+      */
+
+    @Override
+    protected DatabasePopulator databasePopulator(DataSource dataSource) {
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setContinueOnError(true);
+        populator.addScript(new ClassPathResource("org/springframework/batch/core/batch-mysql-ddl.sql"));
+        try {
+            populator.populate(dataSource.getConnection());
+        } catch (SQLException e) {
+            logger.error("Exception Populating Database", e);
+        }
+        return populator;
+    }
 
 }
