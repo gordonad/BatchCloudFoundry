@@ -5,10 +5,9 @@ import com.gordondickens.bcf.repository.ProductTrxRepository;
 import com.gordondickens.bcf.web.ProductController;
 import com.gordondickens.bcf.web.ProductTrxController;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.dialect.Dialect;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -17,6 +16,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -26,139 +26,170 @@ import java.util.Properties;
 @Configuration
 public abstract class ApplicationConfigCommon {
 
-	@SuppressWarnings("rawtypes")
-	JpaEntityInformation entityMetadata;
+    @Inject
+    private Environment environment;
 
-	@Value("${database.name}")
-	protected String databaseName;
+    @SuppressWarnings("rawtypes")
+    JpaEntityInformation entityMetadata;
 
-	@Value("${database.host}")
-	protected String host;
+    @Bean
+    public DataSource dataSource() {
+        BasicDataSource ds = new BasicDataSource();
+        ds.setPassword(getPassword());
+        ds.setUrl(getUrl());
+        ds.setUsername(getUser());
+        ds.setDriverClassName(getDriverClassName());
+        ds.setTestOnBorrow(true);
+        ds.setTestOnReturn(true);
+        ds.setTestWhileIdle(true);
+        ds.setTimeBetweenEvictionRunsMillis(1800000);
+        ds.setMinEvictableIdleTimeMillis(1800000);
+        ds.setNumTestsPerEvictionRun(3);
+        databasePopulator(ds);
+        return ds;
+    }
 
-	@Value("${database.port}")
-	protected String port;
 
-	@Value("${database.url}")
-	protected String url;
+    @Bean
+    public EntityManagerFactory containerEntityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource());
 
-	@Value("${database.username}")
-	protected String user;
+        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+//        jpaVendorAdapter.setDatabase(Database.HSQL);
+        jpaVendorAdapter.setDatabasePlatform(getDatabaseVendor());
+        jpaVendorAdapter.setGenerateDdl(true);
+        jpaVendorAdapter.setShowSql(true);
 
-	@Value("${database.password}")
-	protected String password;
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
 
-	@Value("${database.driverClassName}")
-	protected String driverClassName;
-	// protected Class<? extends Driver> driverClassName;
+        entityManagerFactoryBean.afterPropertiesSet();
+        return entityManagerFactoryBean.getObject();
+    }
 
-	@Value("${database.dialect}")
-	protected Class<? extends Dialect> dialect;
+    private Properties jpaProperties() {
+        Properties jpaProperties = new Properties();
+        jpaProperties.put("hibernate.hbm2ddl.auto", getHbm2ddl());
+//        jpaProperties.put("hibernate.ejb.naming_strategy", namingStrategy);
+//        jpaProperties.put("hibernate.dialect", dialect);
+        jpaProperties.put("hibernate.connection.charSet", getHibernateCharSet());
+        return jpaProperties;
+    }
 
-	@Value("${database.vendor}")
-	protected String databaseVendor;
+    @Bean
+    public JpaRepositoryFactory jpaRepository() throws Exception {
+        JpaRepositoryFactory repository = new JpaRepositoryFactory(
+                entityManager()) {
+            @Override
+            @SuppressWarnings("unchecked")
+            public <T, ID extends Serializable> JpaEntityInformation<T, ID> getEntityInformation(
+                    Class<T> domainClass) {
 
-	@Value("${hibernate.hbm2ddl.auto:update}")
-	protected String hbm2ddl;
+                return entityMetadata;
+            }
 
-	@Value("${hibernate.ejb.naming_strategy}")
-	protected String namingStrategy;
+            ;
+        };
+        return repository;
+    }
 
-	@Value("${hibernate.connection.charSet:UTF-8}")
-	protected String hibernateCharSet;
+    @Bean
+    public EntityManager entityManager() throws Exception {
+        return containerEntityManagerFactory().createEntityManager();
+    }
 
-	@Bean
-	public DataSource dataSource() {
-		BasicDataSource ds = new BasicDataSource();
-		ds.setPassword(password);
-		ds.setUrl(url);
-		ds.setUsername(user);
-		ds.setDriverClassName(driverClassName);
-		ds.setTestOnBorrow(true);
-		ds.setTestOnReturn(true);
-		ds.setTestWhileIdle(true);
-		ds.setTimeBetweenEvictionRunsMillis(1800000);
-		ds.setMinEvictableIdleTimeMillis(1800000);
-		ds.setNumTestsPerEvictionRun(3);
-		databasePopulator(ds);
-		return ds;
-	}
+    @Bean
+    public ProductRepository productRepository() throws Exception {
+        return jpaRepository().getRepository(ProductRepository.class);
+    }
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean containerEntityManagerFactory()
-			throws Exception {
+    @Bean
+    public ProductTrxRepository productTrxRepository() throws Exception {
+        return jpaRepository().getRepository(ProductTrxRepository.class);
+    }
 
-		LocalContainerEntityManagerFactoryBean containerEMFB = new LocalContainerEntityManagerFactoryBean();
-		containerEMFB.setDataSource(dataSource());
+    @Bean
+    public PlatformTransactionManager transactionManager() throws Exception {
+        EntityManagerFactory entityManagerFactory = containerEntityManagerFactory();
+        return new JpaTransactionManager(entityManagerFactory);
+    }
 
-		HibernateJpaVendorAdapter jva = new HibernateJpaVendorAdapter();
-		jva.setDatabasePlatform(databaseVendor);
-		jva.setGenerateDdl(true);
-		jva.setShowSql(true);
-		containerEMFB.setJpaVendorAdapter(jva);
-		Properties jpaProperties = new Properties();
-		jpaProperties.put("hibernate.hbm2ddl.auto", hbm2ddl);
-		jpaProperties.put("hibernate.ejb.naming_strategy", namingStrategy);
-		jpaProperties.put("hibernate.connection.charSet", hibernateCharSet);
-		containerEMFB.setJpaProperties(jpaProperties);
-		containerEMFB
-				.setPackagesToScan(new String[] { "com.gordondickens.bcf.entity" });
-		// ProductTrx.class.getPackage().getName()
-		// look ma, no persistence.xml !
-		return containerEMFB;
-	}
+    @Bean
+    public ProductController productController() {
+        return new ProductController();
+    }
 
-	@Bean
-	public JpaRepositoryFactory jpaRepository() throws Exception {
-		JpaRepositoryFactory repository = new JpaRepositoryFactory(
-				entityManager()) {
-			@Override
-			@SuppressWarnings("unchecked")
-			public <T, ID extends Serializable> JpaEntityInformation<T, ID> getEntityInformation(
-					Class<T> domainClass) {
+    @Bean
+    public ProductTrxController productTrxController() {
+        return new ProductTrxController();
+    }
 
-				return entityMetadata;
-			};
-		};
-		return repository;
-	}
+    @SuppressWarnings("rawtypes")
+    public JpaEntityInformation getEntityMetadata() {
+        return entityMetadata;
+    }
 
-	@Bean
-	public EntityManager entityManager() throws Exception {
-		return containerEntityManagerFactory().getNativeEntityManagerFactory()
-				.createEntityManager();
-	}
+    protected abstract DatabasePopulator databasePopulator(DataSource dataSource);
 
-	@Bean
-	public ProductRepository productRepository() throws Exception {
-		return jpaRepository().getRepository(ProductRepository.class);
-	}
+    public String getDatabaseName() {
+        return environment.getProperty("database.name");
+    }
 
-	@Bean
-	public ProductTrxRepository productTrxRepository() throws Exception {
-		return jpaRepository().getRepository(ProductTrxRepository.class);
-	}
+    public String getHost() {
+        return environment.getProperty("database.host");
+    }
 
-	@Bean
-	public PlatformTransactionManager transactionManager() throws Exception {
-		EntityManagerFactory entityManagerFactory = containerEntityManagerFactory()
-				.getObject();
-		return new JpaTransactionManager(entityManagerFactory);
-	}
+    public String getPort() {
+        return environment.getProperty("database.port");
+    }
 
-	@Bean
-	public ProductController productController() {
-		return new ProductController();
-	}
+    public String getUrl() {
+        return environment.getProperty("database.url");
+    }
 
-	@Bean
-	public ProductTrxController productTrxController() {
-		return new ProductTrxController();
-	}
+    public String getUser() {
+        return environment.getProperty("database.username");
+    }
 
-	@SuppressWarnings("rawtypes")
-	public JpaEntityInformation getEntityMetadata() {
-		return entityMetadata;
-	}
+    public String getPassword() {
+        return environment.getProperty("database.password");
+    }
 
-	protected abstract DatabasePopulator databasePopulator(DataSource dataSource);
+    public String getDriverClassName() {
+        return environment.getProperty("database.driverClassName");
+    }
+
+    public String getDialect() {
+        return environment.getProperty("database.dialect");
+    }
+
+    public String getDatabaseVendor() {
+        return environment.getProperty("database.vendor");
+    }
+
+    public String getHbm2ddl() {
+        return environment.getProperty("database.hbm2ddl", "update");
+    }
+
+    public String getHibernateCharSet() {
+        return environment.getProperty("database.hibernateCharSet", "UTF-8");
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationConfigCommon{" +
+                "entityMetadata=" + getEntityMetadata() +
+                ", databaseName='" + getDatabaseName() + '\'' +
+                ", host='" + getHost() + '\'' +
+                ", port='" + getPort() + '\'' +
+                ", url='" + getUrl() + '\'' +
+                ", user='" + getUser() +
+                ", password='" + getPassword() + '\'' +
+                ", driverClassName='" + getDriverClassName() + '\'' +
+                ", dialect='" + getDialect() + '\'' +
+                ", databaseVendor='" + getDatabaseVendor() + '\'' +
+                ", hbm2ddl='" + getHbm2ddl() + '\'' +
+                ", hibernateCharSet='" + getHibernateCharSet() + '\'' +
+                '}';
+    }
 }

@@ -6,6 +6,11 @@
 	<display-name>BatchCloudFoundry</display-name>
 	<description>Batch Cloud Foundry Application with RabbitMQ</description>
 
+    <!-- Creates the Spring Container shared by all Servlets and Filters -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
 	<context-param>
 		<param-name>contextInitializerClasses</param-name>
 		<param-value>com.gordondickens.bcf.services.CloudApplicationContextInitializer</param-value>
@@ -67,10 +72,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- Creates the Spring Container shared by all Servlets and Filters -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 
 	<!-- Handles Spring requests -->
 	<servlet>

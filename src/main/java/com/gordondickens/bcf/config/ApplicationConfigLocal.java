@@ -19,22 +19,24 @@ import java.sql.SQLException;
 @Profile(Env.LOCAL)
 @PropertySource("classpath:META-INF/spring/database-local.properties")
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.gordondickens.bcf" }, excludeFilters = { @ComponentScan.Filter(Configuration.class) })
+@ComponentScan(basePackages = {"com.gordondickens.bcf"}, excludeFilters = {@ComponentScan.Filter(Configuration.class)})
 public class ApplicationConfigLocal extends ApplicationConfigCommon {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ApplicationConfigLocal.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(ApplicationConfigLocal.class);
 
-	@Override
-	protected DatabasePopulator databasePopulator(DataSource dataSource) {
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.setContinueOnError(true);
-		populator.addScript(new ClassPathResource("batch-hsqldb-ddl.sql"));
-		try {
-			populator.populate(dataSource.getConnection());
-		} catch (SQLException e) {
-			logger.error("Exception Populating Database", e);
-		}
-		return populator;
-	}
+    @Override
+    protected DatabasePopulator databasePopulator(DataSource dataSource) {
+        logger.debug("***********\n***********\n***********\n\t{}", this.toString());
+
+        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setContinueOnError(true);
+        populator.addScript(new ClassPathResource("batch-hsqldb-ddl.sql"));
+        try {
+            populator.populate(dataSource.getConnection());
+        } catch (SQLException e) {
+            logger.error("Exception Populating Database", e);
+        }
+        return populator;
+    }
 
 }

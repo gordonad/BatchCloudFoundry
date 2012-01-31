@@ -5,7 +5,7 @@
 
     <groupId>com.gordondickens.bcf</groupId>
     <artifactId>BatchCloudFoundry</artifactId>
-    <version>0.6.0</version>
+    <version>0.7.0</version>
 
     <packaging>war</packaging>
     <name>BatchCloudFoundry</name>
@@ -13,24 +13,26 @@
     <properties>
         <aspectj.version>1.6.12.RELEASE</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
-        <!-- <cloudfoundry.version>0.7.1</cloudfoundry.version> -->
         <cloudfoundry.version>0.8.1</cloudfoundry.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.codec.version>1.6</commons.codec.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.dbcp.version>1.4</commons.dbcp.version>
         <commons.digester.version>3.2</commons.digester.version>
+        <commons.exec.version>1.1</commons.exec.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.httpclient.version>3.1</commons.httpclient.version>
         <commons.io.version>2.1</commons.io.version>
         <commons.lang.version>3.1</commons.lang.version>
         <commons.net.version>3.0.1</commons.net.version>
-        <commons.pool.version>1.5.7</commons.pool.version>
+        <commons.pool.version>1.6</commons.pool.version>
         <commons.validator.version>1.3.1</commons.validator.version>
         <!--<detail>true</detail>-->
         <dom4j.version>1.6.1</dom4j.version>
+        <dp4j.version>1.2</dp4j.version>
         <ehcache.version>2.5.0</ehcache.version>
         <el.version>1.0</el.version>
+        <flexjson.version>2.1</flexjson.version>
         <geronimo.jee.version>1.0.1</geronimo.jee.version>
         <geronimo.jta.version>1.1.1</geronimo.jta.version>
         <hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
@@ -71,7 +73,7 @@
         <maven.test.failure.ignore>false</maven.test.failure.ignore>
         <maven.test.skip>true</maven.test.skip>
         <maven.version.range>[2.2.1,3.1.0)</maven.version.range>
-        <maven.jetty.plugin>8.1.0.RC0</maven.jetty.plugin>
+        <maven.jetty.plugin>8.1.0.RC5</maven.jetty.plugin>
         <maven.versions.plugin>1.2</maven.versions.plugin>
         <maven.war.plugin>2.1.1</maven.war.plugin>
         <mockito.version>1.9.0</mockito.version>
@@ -91,7 +93,7 @@
         <spring.batch.integration.version>2.1.0.M4</spring.batch.integration.version>
         <spring.batch.version>2.1.8.RELEASE</spring.batch.version>
         <spring.data.jpa.version>1.1.0.M1</spring.data.jpa.version>
-        <spring.integration.version>2.1.0.RC1</spring.integration.version>
+        <spring.integration.version>2.1.0.RC2</spring.integration.version>
         <spring.redis.version>1.0.0.RELEASE</spring.redis.version>
         <spring.retry.version>1.0.0.RELEASE</spring.retry.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
@@ -270,7 +272,7 @@
         <dependency>
             <groupId>net.sf.flexjson</groupId>
             <artifactId>flexjson</artifactId>
-            <version>2.1</version>
+            <version>${flexjson.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
@@ -470,6 +472,11 @@
                     </dependency>
                     <dependency>
                         <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-exec</artifactId>
+                        <version>${commons.exec.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.commons</groupId>
                         <artifactId>commons-lang3</artifactId>
                         <version>${commons.lang.version}</version>
                     </dependency>
@@ -545,6 +552,11 @@
                         <version>${junit.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${maven.jetty.plugin}</version>
             </plugin>
         </plugins>
     </build>

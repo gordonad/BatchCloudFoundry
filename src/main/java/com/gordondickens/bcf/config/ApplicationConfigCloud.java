@@ -30,13 +30,13 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
     @Bean
     public Properties serviceProperties() {
         Properties props = new Properties();
-        props.put("url", url);
-        props.put("name", databaseName);
-        props.put("hostname", host);
-        props.put("port", port);
-        props.put("username", user);
-        props.put("password", password);
-        props.put("driver", driverClassName);
+        props.put("url", getUrl());
+        props.put("name", getDatabaseName());
+        props.put("hostname", getHost());
+        props.put("port", getPort());
+        props.put("username", getUser());
+        props.put("password", getPassword());
+        props.put("driver", getDriverClassName());
         return props;
     }
 
@@ -45,12 +45,12 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
         CloudPropertiesFactoryBean cloudPropertiesFactoryBean = new CloudPropertiesFactoryBean();
         Properties properties = cloudPropertiesFactoryBean.getObject();
         Map<String, Object> propertiesMap = new HashMap<String, Object>();
-        
+
         try {
             logger.debug("Cloud Environment Info:");
             for (Object property : properties.keySet()) {
                 propertiesMap.put(property.toString(), properties.get(property));
-                logger.debug("\n\t'{}',='{}'",
+                logger.debug("\n\t'{}'='{}'",
                         property.toString(), properties.get(property).toString());
             }
 
@@ -82,7 +82,8 @@ public class ApplicationConfigCloud extends ApplicationConfigCommon {
     protected DatabasePopulator databasePopulator(DataSource dataSource) {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.setContinueOnError(true);
-        populator.addScript(new ClassPathResource("org/springframework/batch/core/batch-mysql-ddl.sql"));
+//        populator.addScript(new ClassPathResource("org/springframework/batch/core/batch-mysql-ddl.sql"));
+        populator.addScript(new ClassPathResource("batch-mysql-ddl.sql"));
         try {
             populator.populate(dataSource.getConnection());
         } catch (SQLException e) {
