@@ -39,6 +39,7 @@ public class BatchInfrastructureConfig {
 	public JobExplorer jobExplorer() throws Exception {
 		JobExplorerFactoryBean bean = new JobExplorerFactoryBean();
 		bean.setDataSource(dataSource);
+        bean.afterPropertiesSet();
 		return (JobExplorer) bean.getObject();
 	}
 
@@ -81,14 +82,14 @@ public class BatchInfrastructureConfig {
 		return bean;
 	}
 
-	@Bean
-	public MBeanExporter mBeanExporter() throws Exception {
-		MBeanExporter bean = new MBeanExporter();
-		Map<String, Object> beans = new HashMap<String, Object>();
-		beans.put("com.gordondickens.bcf:name=jobOperator", jobOperator());
-		bean.setBeans(beans);
-		return bean;
-	}
+//	@Bean
+//	public MBeanExporter mBeanExporter() throws Exception {
+//		MBeanExporter bean = new MBeanExporter();
+//		Map<String, Object> beans = new HashMap<String, Object>();
+//		beans.put("com.gordondickens.bcf:name=jobOperator", jobOperator());
+//		bean.setBeans(beans);
+//		return bean;
+//	}
 
 	// For Partitioned Jobs, do not need FaultTolerant steps, FactoryBean
 	// unnecessary.

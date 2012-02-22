@@ -1,14 +1,18 @@
 package com.gordondickens.bcf.config;
 
+import com.gordondickens.bcf.entity.Product;
 import com.gordondickens.bcf.repository.ProductRepository;
 import com.gordondickens.bcf.repository.ProductTrxRepository;
 import com.gordondickens.bcf.web.ProductController;
 import com.gordondickens.bcf.web.ProductTrxController;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,11 +25,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.Serializable;
-import java.util.Properties;
 
 @Configuration
 public abstract class ApplicationConfigCommon {
-
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationConfigCommon.class);
     @Inject
     private Environment environment;
 
@@ -49,53 +52,78 @@ public abstract class ApplicationConfigCommon {
         return ds;
     }
 
+    @Bean
+    public PlatformTransactionManager transactionManager() throws Exception {
+        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+        jpaTransactionManager.setEntityManagerFactory(containerEntityManagerFactory().getObject());
+
+        return jpaTransactionManager;
+    }
+
+
+
+    /*
+     <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.gordondickens.orm.domain"/>
+
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true"/>
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="HSQL"/>
+            </bean>
+        </property>
+    </bean>
+    */
+
 
     @Bean
-    public EntityManagerFactory containerEntityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource());
+    public LocalContainerEntityManagerFactoryBean containerEntityManagerFactory() throws Exception {
+        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        localContainerEntityManagerFactoryBean.setDataSource(dataSource());
+        localContainerEntityManagerFactoryBean.setPackagesToScan(Product.class.getPackage().getName());
 
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-//        jpaVendorAdapter.setDatabase(Database.HSQL);
-        jpaVendorAdapter.setDatabasePlatform(getDatabaseVendor());
-        jpaVendorAdapter.setGenerateDdl(true);
+//        jpaVendorAdapter.setDatabasePlatform(getDialect());
         jpaVendorAdapter.setShowSql(true);
+        jpaVendorAdapter.setGenerateDdl(true);
 
-        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
 
-        entityManagerFactoryBean.afterPropertiesSet();
-        return entityManagerFactoryBean.getObject();
+        // No persistence.xml - thanks to packagesToScan
+        return localContainerEntityManagerFactoryBean;
     }
 
-    private Properties jpaProperties() {
-        Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.hbm2ddl.auto", getHbm2ddl());
-//        jpaProperties.put("hibernate.ejb.naming_strategy", namingStrategy);
-//        jpaProperties.put("hibernate.dialect", dialect);
-        jpaProperties.put("hibernate.connection.charSet", getHibernateCharSet());
-        return jpaProperties;
-    }
 
     @Bean
     public JpaRepositoryFactory jpaRepository() throws Exception {
-        JpaRepositoryFactory repository = new JpaRepositoryFactory(
-                entityManager()) {
-            @Override
-            @SuppressWarnings("unchecked")
-            public <T, ID extends Serializable> JpaEntityInformation<T, ID> getEntityInformation(
-                    Class<T> domainClass) {
 
-                return entityMetadata;
-            }
-
-            ;
-        };
-        return repository;
+        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager());
+        return jpaRepositoryFactory;
     }
 
     @Bean
     public EntityManager entityManager() throws Exception {
-        return containerEntityManagerFactory().createEntityManager();
+        if (containerEntityManagerFactory() == null) logger.debug("1. CEMF IS NULL");
+
+
+        EntityManager entityManager = null;
+
+        EntityManagerFactory entityManagerFactory = containerEntityManagerFactory().getObject();
+        if (entityManagerFactory == null) {
+            logger.error("2. EMF IS NULL");
+            return null;
+        } else {
+            entityManager = entityManagerFactory.createEntityManager();
+            if (entityManager == null) {
+                logger.error("3. EM IS NULL");
+                return null;
+            }
+        }
+
+        return entityManager;
     }
 
     @Bean
@@ -105,13 +133,10 @@ public abstract class ApplicationConfigCommon {
 
     @Bean
     public ProductTrxRepository productTrxRepository() throws Exception {
-        return jpaRepository().getRepository(ProductTrxRepository.class);
-    }
+//        JpaEntityInformation<Product, Long> information = new JpaMetamodelEntityInformation<Product, Long>(Product.class,
+//                entityManager().getMetamodel());
 
-    @Bean
-    public PlatformTransactionManager transactionManager() throws Exception {
-        EntityManagerFactory entityManagerFactory = containerEntityManagerFactory();
-        return new JpaTransactionManager(entityManagerFactory);
+        return jpaRepository().getRepository(ProductTrxRepository.class);
     }
 
     @Bean

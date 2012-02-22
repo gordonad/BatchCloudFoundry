@@ -1,81 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc
+	  http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	  http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/data/jpa
+	  http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	  http://www.springframework.org/schema/tx
+	  http://www.springframework.org/schema/tx/spring-tx.xsd
+	  http://www.springframework.org/schema/context
+	  http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<array>
-				<value>classpath:META-INF/spring/amqp.properties</value>
-				<value>classpath:META-INF/spring/database-local.properties</value>
-			</array>
-		</property>
-	</bean>
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:META-INF/spring/amqp.properties</value>
+                <value>classpath:META-INF/spring/database-local.properties</value>
+            </array>
+        </property>
+    </bean>
 
-	<import resource="classpath:META-INF/spring/applicationContext-amqp.xml" />
-	<context:component-scan base-package="com.gordondickens.bcf">
-		<!-- <context:exclude-filter type="annotation"
-			expression="org.springframework.context.annotation.Configuration" />
-		-->
-	</context:component-scan>
+    <import resource="classpath:META-INF/spring/applicationContext-amqp.xml"/>
+    <context:component-scan base-package="com.gordondickens.bcf">
+        <!-- <context:exclude-filter type="annotation"
+              expression="org.springframework.context.annotation.Configuration" />
+          -->
+    </context:component-scan>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName" value="${database.driverClassName}" />
-		<property name="url" value="${database.url}" />
-		<property name="username" value="${database.username}" />
-		<property name="password" value="${database.password}" />
-		<property name="testOnBorrow" value="true" />
-		<property name="testOnReturn" value="true" />
-		<property name="testWhileIdle" value="true" />
-		<property name="timeBetweenEvictionRunsMillis" value="1800000" />
-		<property name="numTestsPerEvictionRun" value="3" />
-		<property name="minEvictableIdleTimeMillis" value="1800000" />
-	</bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+    </bean>
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-				<property name="database" value="${database.vendor}" />
-			</bean>
-		</property>
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-				<prop key="hibernate.connection.charSet">UTF-8</prop>
-			</props>
-		</property>
-	</bean>
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="packagesToScan" value="com.gordondickens.bcf.entity"/>
+        <property name="persistenceUnitName" value="persistenceUnit"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="database" value="${database.vendor}"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.connection.charSet">UTF-8</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect"</prop>
+            </props>
+        </property>
+    </bean>
 
-	<jdbc:initialize-database ignore-failures="ALL">
-		<jdbc:script location="classpath:batch-mysql-ddl.sql" />
-	</jdbc:initialize-database>
+    <jdbc:initialize-database ignore-failures="ALL">
+        <jdbc:script location="classpath:batch-mysql-ddl.sql"/>
+    </jdbc:initialize-database>
 
-	<jpa:repositories base-package="com.gordondickens.bcf.repository"
-		query-lookup-strategy="create-if-not-found" repository-impl-postfix="Impl"
-		entity-manager-factory-ref="entityManagerFactory"
-		transaction-manager-ref="transactionManager" />
+    <jpa:repositories base-package="com.gordondickens.bcf.repository"
+                      query-lookup-strategy="create-if-not-found"
+                      repository-impl-postfix="Impl"
+                      entity-manager-factory-ref="containerEntityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
 
-	<bean class="org.springframework.orm.jpa.JpaTransactionManager"
-		id="transactionManager">
-		<property name="entityManagerFactory" ref="containerEntityManagerFactory" />
-		<property name="jpaDialect">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
-		</property>
-	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="containerEntityManagerFactory"/>
+    </bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager"
-		mode="aspectj" />
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          mode="aspectj"/>
 
 </beans>

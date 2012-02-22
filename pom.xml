@@ -5,20 +5,21 @@
 
     <groupId>com.gordondickens.bcf</groupId>
     <artifactId>BatchCloudFoundry</artifactId>
-    <version>0.7.0</version>
+    <version>0.8.0</version>
 
     <packaging>war</packaging>
     <name>BatchCloudFoundry</name>
 
     <properties>
-        <aspectj.version>1.6.12.RELEASE</aspectj.version>
+        <aspectj.version>1.6.12</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
+        <cloudfoundry.memory>256</cloudfoundry.memory>
         <cloudfoundry.version>0.8.1</cloudfoundry.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.codec.version>1.6</commons.codec.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.dbcp.version>1.4</commons.dbcp.version>
-        <commons.digester.version>3.2</commons.digester.version>
+        <commons.digester.version>2.1</commons.digester.version>
         <commons.exec.version>1.1</commons.exec.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.httpclient.version>3.1</commons.httpclient.version>
@@ -30,16 +31,16 @@
         <!--<detail>true</detail>-->
         <dom4j.version>1.6.1</dom4j.version>
         <dp4j.version>1.2</dp4j.version>
-        <ehcache.version>2.5.0</ehcache.version>
-        <el.version>1.0</el.version>
+        <ehcache.version>2.5.1</ehcache.version>
+        <el.version>2.2</el.version>
         <flexjson.version>2.1</flexjson.version>
         <geronimo.jee.version>1.0.1</geronimo.jee.version>
         <geronimo.jta.version>1.1.1</geronimo.jta.version>
         <hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
         <hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
         <hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
-        <hibernate.version>3.6.8.Final</hibernate.version>
-        <hsqldb.version>2.2.6</hsqldb.version>
+        <hibernate.version>4.1.0.Final</hibernate.version>
+        <hsqldb.version>2.2.8</hsqldb.version>
         <icu4j.version>4.8.1.1</icu4j.version>
         <jasypt.version>1.9.0</jasypt.version>
         <java.version>1.6</java.version>
@@ -54,28 +55,34 @@
         <junit.version>4.10</junit.version>
         <logback.version>1.0.0</logback.version>
 
-        <maven.assembly.plugin>2.2.2</maven.assembly.plugin>
         <maven.aspectj.plugin>1.4</maven.aspectj.plugin>
+        <maven.assembly.plugin>2.3</maven.assembly.plugin>
         <maven.clean.plugin>2.4.1</maven.clean.plugin>
+        <maven.cloudfoundry.plugin>1.0.0.M1</maven.cloudfoundry.plugin>
         <maven.compiler.plugin>2.3.2</maven.compiler.plugin>
         <maven.dependency.plugin>2.4</maven.dependency.plugin>
         <maven.deploy.plugin>2.7</maven.deploy.plugin>
         <maven.eclipse.plugin>2.8</maven.eclipse.plugin>
         <maven.enforcer.plugin>1.0.1</maven.enforcer.plugin>
-        <maven.exec.plugin>1.2</maven.exec.plugin>
-        <maven.failsafe.plugin>2.11</maven.failsafe.plugin>
+        <maven.exec.plugin>1.2.1</maven.exec.plugin>
+        <maven.failsafe.plugin>2.12</maven.failsafe.plugin>
+        <maven.groovy.plugin>1.3</maven.groovy.plugin>
+        <maven.help.plugin>2.1.1</maven.help.plugin>
         <maven.idea.plugin>2.2</maven.idea.plugin>
-        <maven.jar.plugin>2.3.1</maven.jar.plugin>
+        <maven.install.plugin>2.3.1</maven.install.plugin>
+        <maven.jar.plugin>2.4</maven.jar.plugin>
+        <maven.jetty.plugin>8.1.0.v20120127</maven.jetty.plugin>
+        <maven.project.info.reports.plugin>2.4</maven.project.info.reports.plugin>
         <maven.release.plugin>2.2.2</maven.release.plugin>
         <maven.resources.plugin>2.5</maven.resources.plugin>
         <maven.source.plugin>2.1.2</maven.source.plugin>
-        <maven.surefire.plugin>2.11</maven.surefire.plugin>
+        <maven.surefire.plugin>2.12</maven.surefire.plugin>
         <maven.test.failure.ignore>false</maven.test.failure.ignore>
-        <maven.test.skip>true</maven.test.skip>
+        <maven.test.skip>false</maven.test.skip>
+        <maven.tomcat.plugin>2.0-SNAPSHOT</maven.tomcat.plugin>
         <maven.version.range>[2.2.1,3.1.0)</maven.version.range>
-        <maven.jetty.plugin>8.1.0.RC5</maven.jetty.plugin>
         <maven.versions.plugin>1.2</maven.versions.plugin>
-        <maven.war.plugin>2.1.1</maven.war.plugin>
+        <maven.war.plugin>2.2</maven.war.plugin>
         <mockito.version>1.9.0</mockito.version>
         <mysql.version>5.1.18</mysql.version>
         <outputFile>buildResults.txt</outputFile>
@@ -92,12 +99,12 @@
         <spring.batch.admin.version>1.2.1.RELEASE</spring.batch.admin.version>
         <spring.batch.integration.version>2.1.0.M4</spring.batch.integration.version>
         <spring.batch.version>2.1.8.RELEASE</spring.batch.version>
-        <spring.data.jpa.version>1.1.0.M1</spring.data.jpa.version>
-        <spring.integration.version>2.1.0.RC2</spring.integration.version>
+        <spring.data.jpa.version>1.1.0.RC1</spring.data.jpa.version>
+        <spring.integration.version>2.1.0.RELEASE</spring.integration.version>
         <spring.redis.version>1.0.0.RELEASE</spring.redis.version>
         <spring.retry.version>1.0.0.RELEASE</spring.retry.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
-        <spring.version>3.1.0.RELEASE</spring.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <stax.version>1.0.1</stax.version>
         <surefire.reportFormat>plain</surefire.reportFormat>
@@ -124,92 +131,76 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>${spring.data.jpa.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-test</artifactId>
-            <version>${spring.batch.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-core</artifactId>
-            <version>${spring.batch.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-admin-manager</artifactId>
-            <version>${spring.batch.admin.version}</version>
         </dependency>
 
         <!-- Spring Core -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.xbean</groupId>
             <artifactId>xbean-spring</artifactId>
-            <version>${xbean.version}</version>
         </dependency>
 
         <!-- Spring Web Flow -->
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-js-resources</artifactId>
-            <version>${spring.webflow.version}</version>
         </dependency>
 
         <!-- Rabbit MQ -->
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit</artifactId>
-            <version>${spring.amqp.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-amqp</artifactId>
-            <version>${spring.integration.version}</version>
         </dependency>
 
         <!-- REDIS -->
         <!-- <dependency>
               <groupId>org.springframework.integration</groupId>
               <artifactId>spring-integration-redis</artifactId>
-              <version>${spring.integration.version}</version>
               </dependency> -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>${spring.redis.version}</version>
         </dependency>
 
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>${hibernate.jpa.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate.javax.persistence</groupId>-->
+            <!--<artifactId>hibernate-jpa-2.0-api</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator.version}</version>
         </dependency>
 
         <!-- HSQL Local DB -->
@@ -240,6 +231,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>${mockito.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Logging -->
@@ -343,6 +335,10 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
         </dependency>
     </dependencies>
 
@@ -514,9 +510,13 @@
                         <configuration>
                             <rules>
                                 <bannedDependencies>
+                                    <searchTransitive>true</searchTransitive>
                                     <excludes>
                                         <exclude>commons-logging</exclude>
+                                        <exclude>aspectj:aspectj*</exclude>
+                                        <exclude>hsqldb:hsqldb</exclude>
                                         <exclude>log4j:log4j</exclude>
+                                        <exclude>org.slf4j*:1.5*</exclude>
                                     </excludes>
                                 </bannedDependencies>
                                 <requireMavenVersion>
@@ -557,8 +557,501 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${maven.jetty.plugin}</version>
+                <configuration>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>logback.configurationFile</name>
+                            <value>./src/main/resources/logback.xml</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>com.sun.management.jmxremote</name>
+                            <value>true</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>com.sun.management.jmxremote.port</name>
+                            <value>8050</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>com.sun.management.jmxremote.ssl</name>
+                            <value>false</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>com.sun.management.jmxremote.authenticate</name>
+                            <value>false</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                        <version>${slf4j.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                        <version>${slf4j.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jul-to-slf4j</artifactId>
+                        <version>${slf4j.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                        <version>${logback.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-access</artifactId>
+                        <version>${logback.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
+
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.cloudfoundry</groupId>
+                    <artifactId>cf-maven-plugin</artifactId>
+                    <version>${maven.cloudfoundry.plugin}</version>
+                    <configuration>
+                        <server>mycloudfoundry-instance</server>
+                        <target>http://api.cloudfoundry.com</target>
+                        <url>${project.name}.cloudfoundry.com</url>
+                        <memory>${cloudfoundry.memory}</memory>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven.deploy.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven.install.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven.release.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven.assembly.plugin}</version>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${maven.exec.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven.source.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven.clean.plugin}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>${project.basedir}</directory>
+                                <includes>
+                                    <include>target</include>
+                                    <include>activemq-data</include>
+                                    <include>derby-home</include>
+                                    <include>amqstore</include>
+                                    <include>.clover</include>
+                                    <include>surefire*</include>
+                                    <include>derby.log</include>
+                                </includes>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>${maven.eclipse.plugin}</version>
+                    <configuration>
+                        <downloadSources>true</downloadSources>
+                        <downloadJavadocs>false</downloadJavadocs>
+                        <wtpversion>${wtp.version}</wtpversion>
+                        <additionalBuildcommands>
+                            <buildCommand>
+                                <name>org.springframework.ide.eclipse.core.springbuilder</name>
+                                <name>org.eclipse.m2e.core.maven2Builder</name>
+                            </buildCommand>
+                            <buildCommand>
+                                <name>org.eclipse.ajdt.core.ajbuilder</name>
+                                <arguments>
+                                    <aspectPath>org.springframework.aspects</aspectPath>
+                                </arguments>
+                            </buildCommand>
+                        </additionalBuildcommands>
+                        <additionalProjectnatures>
+                            <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+                            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                            <projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
+                            <projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
+                        </additionalProjectnatures>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat6-maven-plugin</artifactId>
+                    <version>${maven.tomcat.plugin}</version>
+                    <configuration>
+                        <systemProperties>
+                            <com.sun.management.jmxremote>true</com.sun.management.jmxremote>
+                            <com.sun.management.jmxremote.port>8050</com.sun.management.jmxremote.port>
+                            <com.sun.management.jmxremote.ssl>false</com.sun.management.jmxremote.ssl>
+                            <com.sun.management.jmxremote.authenticate>false</com.sun.management.jmxremote.authenticate>
+                            <java.util.logging.manager>org.apache.juli.ClassLoaderLogManager</java.util.logging.manager>
+                            <logback.ContextSelector>JNDI</logback.ContextSelector>
+                        </systemProperties>
+                        <!--<path>/</path> -->
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jul-to-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-classic</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-access</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>${maven.tomcat.plugin}</version>
+                    <configuration>
+                        <systemProperties>
+                            <com.sun.management.jmxremote>true</com.sun.management.jmxremote>
+                            <com.sun.management.jmxremote.port>8050</com.sun.management.jmxremote.port>
+                            <com.sun.management.jmxremote.ssl>false</com.sun.management.jmxremote.ssl>
+                            <com.sun.management.jmxremote.authenticate>false</com.sun.management.jmxremote.authenticate>
+                            <java.util.logging.manager>org.apache.juli.ClassLoaderLogManager</java.util.logging.manager>
+                            <logback.ContextSelector>JNDI</logback.ContextSelector>
+                        </systemProperties>
+                        <!--<path>/</path> -->
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jul-to-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-classic</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-access</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>${maven.jetty.plugin}</version>
+                    <configuration>
+                        <systemProperties>
+                            <systemProperty>
+                                <name>logback.configurationFile</name>
+                                <value>./src/main/resources/logback.xml</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <name>com.sun.management.jmxremote</name>
+                                <value>true</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <name>com.sun.management.jmxremote.port</name>
+                                <value>8050</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <name>com.sun.management.jmxremote.ssl</name>
+                                <value>false</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <name>com.sun.management.jmxremote.authenticate</name>
+                                <value>false</value>
+                            </systemProperty>
+                        </systemProperties>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-api</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jul-to-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-classic</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>ch.qos.logback</groupId>
+                            <artifactId>logback-access</artifactId>
+                            <version>${logback.version}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven.failsafe.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.plugin}</version>
+                    <configuration>
+                        <parallel>methods</parallel>
+                        <threadCount>10</threadCount>
+                        <!-- Show the test errors on console -->
+                        <useFile>false</useFile>
+                        <printSummary>false</printSummary>
+                        <includes>
+                            <include>**/*Tests.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/Abstract*.java</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven.dependency.plugin}</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>junit</groupId>
+                            <artifactId>junit</artifactId>
+                            <version>${junit.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>commons-io</groupId>
+                            <artifactId>commons-io</artifactId>
+                            <version>${commons.io.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resources.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven.enforcer.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-banned-dependencies</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <bannedDependencies>
+                                        <searchTransitive>true</searchTransitive>
+                                        <excludes>
+                                            <exclude>commons-lang</exclude>
+                                            <exclude>commons-logging</exclude>
+                                            <exclude>aspectj:aspectj*</exclude>
+                                            <exclude>hsqldb:hsqldb</exclude>
+                                            <exclude>log4j:log4j</exclude>
+                                            <exclude>org.slf4j*:1.5*</exclude>
+                                        </excludes>
+                                    </bannedDependencies>
+                                    <requireMavenVersion>
+                                        <version>${maven.version.range}</version>
+                                    </requireMavenVersion>
+                                    <requireJavaVersion>
+                                        <version>${java.version}</version>
+                                    </requireJavaVersion>
+                                </rules>
+                                <fail>true</fail>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${maven.versions.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>junit</groupId>
+                            <artifactId>junit</artifactId>
+                            <version>${junit.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-help-plugin</artifactId>
+                    <version>${maven.help.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmaven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>${maven.groovy.plugin}</version>
+                    <executions>
+                        <execution>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>execute</goal>
+                            </goals>
+                            <configuration>
+                                <source>log.info("Running with Spring '${spring.version}'...")</source>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>${maven.aspectj.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjrt</artifactId>
+                            <version>${aspectj.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>${aspectj.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>test-compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <outxml>true</outxml>
+                        <aspectLibraries>
+                            <aspectLibrary>
+                                <groupId>org.springframework</groupId>
+                                <artifactId>spring-aspects</artifactId>
+                            </aspectLibrary>
+                        </aspectLibraries>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-idea-plugin</artifactId>
+                    <version>${maven.idea.plugin}</version>
+                    <configuration>
+                        <downloadSources>true</downloadSources>
+                        <downloadJavadocs>true</downloadJavadocs>
+                        <jdkLevel>${java.version}</jdkLevel>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+
     </build>
 
     <repositories>
@@ -834,6 +1327,11 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.webflow</groupId>
+                <artifactId>spring-js-resources</artifactId>
+                <version>${spring.webflow.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -1117,8 +1615,8 @@
                 <version>${commons.fileupload.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-digester3</artifactId>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
                 <version>${commons.digester.version}</version>
                 <exclusions>
                     <exclusion>

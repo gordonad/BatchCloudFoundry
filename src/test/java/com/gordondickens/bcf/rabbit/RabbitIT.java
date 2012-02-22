@@ -21,10 +21,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.gordondickens.bcf.config.BatchInfrastructureConfig;
 import com.gordondickens.bcf.services.Env;
 
-@ContextConfiguration(locations = { "RabbitIT-context.xml" }, classes = { BatchInfrastructureConfig.class })
+@ContextConfiguration
+//@ContextConfiguration(locations = { "RabbitIT-context.xml" }, classes = { BatchInfrastructureConfig.class })
 // , loader = AnnotationConfigContextLoader.class
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(Env.LOCAL)
+@ActiveProfiles(profiles = Env.LOCAL)
 public class RabbitIT {
 	private static final String NULL_VAL = "NULL - d'oh";
 

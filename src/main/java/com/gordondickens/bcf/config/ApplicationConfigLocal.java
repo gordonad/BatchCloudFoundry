@@ -38,5 +38,4 @@ public class ApplicationConfigLocal extends ApplicationConfigCommon {
         }
         return populator;
     }
-
 }
