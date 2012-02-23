@@ -4,4 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <-- See: com.gordondickens.bcf.web.ApplicationMvcConfig.java for configuration -->
+
 </beans>

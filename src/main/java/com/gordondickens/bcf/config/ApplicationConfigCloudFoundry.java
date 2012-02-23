@@ -19,13 +19,13 @@ import java.util.Map;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:META-INF/spring/database.properties")
-@Profile(Env.CLOUD)
+@PropertySource("classpath:META-INF/spring/database-cloudfoundry.properties")
+@Profile(Env.CLOUDFOUNDRY)
 @EnableTransactionManagement
 @ComponentScan(excludeFilters = {@ComponentScan.Filter(Configuration.class)})
-public class ApplicationConfigCloud extends ApplicationConfigCommon {
+public class ApplicationConfigCloudFoundry extends ApplicationConfigCommon {
     private static final Logger logger = LoggerFactory
-            .getLogger(ApplicationConfigCloud.class);
+            .getLogger(ApplicationConfigCloudFoundry.class);
 
     @Bean
     public Properties serviceProperties() {
