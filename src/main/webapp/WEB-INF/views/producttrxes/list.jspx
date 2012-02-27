@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     version="2.0">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
-    <page:list id="pl_com_gordondickens_bcf_entity_ProductTrx" items="${producttrxes}" z="Bbr9E6fXWEn83iJjLifshdVrbfo=">
-        <table:table data="${producttrxes}" id="l_com_gordondickens_bcf_entity_ProductTrx" path="/producttrxes" z="ypOtApWQdheIy6Fo0TGM+m88JHQ=">
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_product" property="product" z="Y58q9XwzxNiDdBITtqfbTH6tNcw="/>
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_store" property="store" z="0ASU8RiZvp5S/M3uNTohM6owclE="/>
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_quantity" property="quantity" z="mBjy0k02pXWQbJv5Pmfy1Z+7C14="/>
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_price" property="price" z="3jcUc8ZJEtBgqlG29/IXxkFNP7E="/>
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_trxDate" property="trxDate" z="l+bLvUdENAFU4LeuO4sUjP72mH0="/>
-            <table:column id="c_com_gordondickens_bcf_entity_ProductTrx_comment" property="comment" z="faUUVmaFQ7z7Lap3i6T2T5YiQ+0="/>
+    <page:list id="pl_entity_ProductTrx" items="${producttrxes}">
+        <table:table data="${producttrxes}" id="l_entity_ProductTrx" path="/producttrxes">
+            <table:column id="c_entity_ProductTrx_product" property="product"/>
+            <table:column id="c_entity_ProductTrx_store" property="store"/>
+            <table:column id="c_entity_ProductTrx_quantity" property="quantity"/>
+            <table:column id="c_entity_ProductTrx_price" property="price"/>
+            <table:column id="c_entity_ProductTrx_trxDate" property="trxDate"/>
+            <table:column id="c_entity_ProductTrx_comment" property="comment"/>
         </table:table>
     </page:list>
 </div>

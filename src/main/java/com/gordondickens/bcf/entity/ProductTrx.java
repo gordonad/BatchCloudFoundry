@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.joda.time.DateTime;
 
 @Entity
@@ -21,7 +23,7 @@ public class ProductTrx implements Serializable {
 
 	@NotNull
 	@OneToOne
-	private com.gordondickens.bcf.entity.Product product;
+	private Product product;
 
 	@NotNull
 	private String store;
@@ -112,17 +114,8 @@ public class ProductTrx implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Comment: ").append(getComment()).append(", ");
-		sb.append("Id: ").append(getId()).append(", ");
-		sb.append("Price: ").append(getPrice()).append(", ");
-		sb.append("Product: ").append(getProduct()).append(", ");
-		sb.append("Quantity: ").append(getQuantity()).append(", ");
-		sb.append("Store: ").append(getStore()).append(", ");
-		sb.append("TrxDate: ").append(getTrxDate()).append(", ");
-		sb.append("Version: ").append(getVersion());
-		return sb.toString();
-	}
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 	@Override
 	public int hashCode() {

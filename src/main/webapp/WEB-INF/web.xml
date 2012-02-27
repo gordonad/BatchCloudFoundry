@@ -72,7 +72,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-
 	<!-- Handles Spring requests -->
 	<servlet>
 		<servlet-name>BatchCloudFoundry</servlet-name>
@@ -93,7 +92,47 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<session-config>
+    <!-- START gDickens - LogBack Access Viewer -->
+    <env-entry>
+        <description>JNDI logging context for this app</description>
+        <env-entry-name>logback/context-name</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>batchcloudfoundry</env-entry-value>
+    </env-entry>
+
+    <env-entry>
+        <description>URL for configuring logback context</description>
+        <env-entry-name>logback/configuration-resource</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>logback.xml</env-entry-value>
+    </env-entry>
+
+    <listener>
+        <listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>LoggerContextFilter</filter-name>
+        <filter-class>ch.qos.logback.classic.selector.servlet.LoggerContextFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LoggerContextFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>ViewStatusMessages</servlet-name>
+        <servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ViewStatusMessages</servlet-name>
+        <url-pattern>/logbackStatus</url-pattern>
+    </servlet-mapping>
+    <!-- END gDickens Logback Configuration -->
+
+    <session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
 

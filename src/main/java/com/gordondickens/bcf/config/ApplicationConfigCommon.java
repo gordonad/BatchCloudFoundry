@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,7 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.Serializable;
+import java.util.ArrayList;
 
 @Configuration
 public abstract class ApplicationConfigCommon {
@@ -59,7 +58,6 @@ public abstract class ApplicationConfigCommon {
 
         return jpaTransactionManager;
     }
-
 
 
     /*
@@ -148,6 +146,16 @@ public abstract class ApplicationConfigCommon {
     public ProductTrxController productTrxController() {
         return new ProductTrxController();
     }
+
+    @Bean
+    ArrayList<String> fileTypes() {
+        ArrayList<String> fileTypeMap = new ArrayList<String>();
+        fileTypeMap.add("CSV");
+        fileTypeMap.add("TXT");
+        fileTypeMap.add("XLS");
+        return fileTypeMap;
+    }
+
 
     @SuppressWarnings("rawtypes")
     public JpaEntityInformation getEntityMetadata() {

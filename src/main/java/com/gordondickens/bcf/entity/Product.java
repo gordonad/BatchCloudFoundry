@@ -1,5 +1,8 @@
 package com.gordondickens.bcf.entity;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -53,15 +56,8 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Id: ").append(getId()).append(", ");
-		sb.append("ProductId: ").append(getProductId()).append(", ");
-		sb.append("Quantity: ").append(getQuantity()).append(", ");
-		sb.append("Store: ").append(getStore()).append(", ");
-		sb.append("Description: ").append(getDescription()).append(", ");
-		sb.append("Version: ").append(getVersion());
-		return sb.toString();
-	}
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 	public String getProductId() {
 		return this.productId;

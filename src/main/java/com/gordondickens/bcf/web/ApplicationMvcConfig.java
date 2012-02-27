@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -23,7 +22,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 
-import java.util.Properties;
+import java.util.*;
 
 @Configuration
 @EnableWebMvc
@@ -39,9 +38,8 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public TilesConfigurer tilesConfigurer() {
         TilesConfigurer tilesConfig = new TilesConfigurer();
-        tilesConfig
-                .setDefinitions(new String[]{"/WEB-INF/layouts/layouts.xml",
-                        "/WEB-INF/views/**/views.xml"});
+        tilesConfig.setDefinitions(new String[]{"/WEB-INF/layouts/layouts.xml",
+                "/WEB-INF/views/**/views.xml"});
         return tilesConfig;
     }
 
@@ -84,8 +82,8 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-        source.setBasenames(new String[]{"WEB-INF/i18n/messages",
-                "WEB-INF/i18n/application"});
+        source.setBasenames("WEB-INF/i18n/messages",
+                "WEB-INF/i18n/application");
         source.setFallbackToSystemLocale(false);
         return source;
     }
@@ -123,22 +121,24 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/, classpath:/META-INF/web-resources/");
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/", "classpath:/META-INF/web-resources/");
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new ProductConverter());
         registry.addConverter(new ProductTrxConverter());
+        registry.addConverter(new UploadFileConverter());
     }
 
     static class ProductConverter implements Converter<Product, String> {
         @Override
         public String convert(Product product) {
-            return new StringBuilder().append(product.getProductId())
-                    .append(" ").append(product.getStore()).append(" ")
-                    .append(product.getQuantity()).append(" ")
-                    .append(product.getDescription()).toString();
+            return product.getProductId() + " " +
+                   product.getStore() + " " +
+                   product.getQuantity() + " " +
+                   product.getDescription();
         }
 
     }
@@ -146,10 +146,19 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
     static class ProductTrxConverter implements Converter<ProductTrx, String> {
         @Override
         public String convert(ProductTrx productTrx) {
-            return new StringBuilder().append(productTrx.getStore())
-                    .append(" ").append(productTrx.getQuantity()).append(" ")
-                    .append(productTrx.getPrice()).append(" ")
-                    .append(productTrx.getTrxDate()).toString();
+            return productTrx.getStore() + " " +
+                   productTrx.getQuantity() + " " +
+                   productTrx.getPrice() + " " +
+                   productTrx.getTrxDate();
+        }
+
+    }
+
+    static class UploadFileConverter implements Converter<UploadFile, String> {
+        @Override
+        public String convert(UploadFile uploadFile) {
+            return uploadFile.getFilename() + " " +
+                    uploadFile.getMultipartFile();
         }
 
     }
