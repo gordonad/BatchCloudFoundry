@@ -64,10 +64,8 @@ public class RabbitIT {
 
 			Object recvMsg = rabbitTemplate.receiveAndConvert(requestQueue);
 			Object recvMsg2 = rabbitTemplate.receiveAndConvert(responseQueue);
-			log("Received From Request Queue", (recvMsg == null ? new String(
-					NULL_VAL) : recvMsg));
-			log("Received From Response Queue", (recvMsg2 == null ? new String(
-					NULL_VAL) : recvMsg2));
+			log("Received From Request Queue", (recvMsg == null ? NULL_VAL : recvMsg));
+			log("Received From Response Queue", (recvMsg2 == null ? NULL_VAL : recvMsg2));
 
 			assertNotNull("Received Message MUST exist", recvMsg);
 			log("Received Message", recvMsg);
@@ -79,8 +77,9 @@ public class RabbitIT {
 	}
 
 	private void log(String message, Object object) {
-		logger.debug("{} {}", message, (object == null ? new String(NULL_VAL)
-				: object.toString()));
-		logger.debug("[{} T({})]", object.getClass().getName());
+        Object safeObject = object == null ? NULL_VAL
+                : object.toString();
+		logger.debug("{} {}", message, safeObject);
+		logger.debug("[{} T({})]", safeObject.getClass().getName());
 	}
 }
