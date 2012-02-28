@@ -3,6 +3,6 @@
         "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
     <definition extends="default" name="upload/uploadfile">
-        <put-attribute name="body" value="/WEB-INF/views/upload/uploadfile.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/views/upload/uploadFile.jspx"/>
     </definition>
 </tiles-definitions>

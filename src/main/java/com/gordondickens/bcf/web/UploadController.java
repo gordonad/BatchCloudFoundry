@@ -11,8 +11,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class UploadController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@ModelAttribute("uploadfile") UploadFile uploadFile, BindingResult result) {
+    public String create(@ModelAttribute("uploadfile") UploadFile uploadFile, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
                 logger.error("Error ({}) - {}", error.getCode(), error.getDefaultMessage());
@@ -51,24 +51,29 @@ public class UploadController {
         logger.debug("********* File Type {}", fileType);
 
         if (!multipartFile.isEmpty()) {
-        try {
-            byte[] bytes = uploadFile.getMultipartFile().getBytes();
-            logger.debug("********* File Contents {}", new String(bytes));
-            // TODO - Write the File?
-            // TODO - Invoke Spring Integration with Claim Check
+            try {
+                byte[] bytes = uploadFile.getMultipartFile().getBytes();
+                logger.debug("********* File Contents {}", new String(bytes));
+                // TODO - Write the File?
+                // TODO - Invoke Spring Integration with Claim Check
 
-        } catch (IOException ioe) {
-            logger.error("Error Locating or Reading File!");
-            return "upload/uploadFile";
+            } catch (IOException ioe) {
+                logger.error("Error Locating or Reading File!");
+                return "upload/uploadFile";
+            }
+
+            // Some type of file processing...
+            logger.info("*******************************************");
+            logger.info("Upload File {}", multipartFile.getName());
+            logger.info("Original File {}", multipartFile.getOriginalFilename());
+            logger.info("*******************************************");
         }
 
-        // Some type of file processing...
-        logger.info("*******************************************");
-        logger.info("Upload File {}", multipartFile.getName());
-        logger.info("Original File {}", multipartFile.getOriginalFilename());
-        logger.info("*******************************************");
+        String processResults = "File '" + multipartFile.getOriginalFilename()+ "' uploaded successfully";
+        logger.info(processResults);
 
-        }
-        return "redirect:/index";
+        redirectAttributes.addFlashAttribute("processResults", processResults);
+
+        return "redirect:upload/uploadFile";
     }
 }
