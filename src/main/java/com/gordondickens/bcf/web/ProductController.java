@@ -1,25 +1,19 @@
 package com.gordondickens.bcf.web;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Collection;
+import com.gordondickens.bcf.entity.Product;
+import com.gordondickens.bcf.repository.ProductRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriUtils;
+import org.springframework.web.util.WebUtils;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.util.UriUtils;
-import org.springframework.web.util.WebUtils;
-
-import com.gordondickens.bcf.entity.Product;
-import com.gordondickens.bcf.repository.ProductRepository;
+import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/products")
@@ -61,7 +55,7 @@ public class ProductController {
 			@RequestParam(value = "size", required = false) Integer size,
 			Model uiModel) {
 		if (page != null || size != null) {
-			int sizeNo = size == null ? 10 : size.intValue();
+			int sizeNo = size == null ? 10 : size;
 			// TODO: add pagination
 			// uiModel.addAttribute("products", Product.findProductEntries(
 			// page == null ? 0 : (page.intValue() - 1) * sizeNo, sizeNo));

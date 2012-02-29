@@ -8,13 +8,13 @@
 
     <jmxConfigurator/>
 
-    <property resource="logconfig/logging.properties" />
+    <property resource="logging.properties" />
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%-5level %logger{0}: %msg%n</pattern>
-        </encoder>
-    </appender>
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+        <!--<encoder>-->
+            <!--<pattern>%-5level %logger{0}: %msg%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
       
     <appender name="SERVER_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${server.log.dir}/${server.log.access.file}.log</file>
@@ -29,21 +29,21 @@
         </encoder>
     </appender>
 
-    <logger name="ch.qos.logback" level="debug">
+    <logger name="ch.qos.logback" level="trace">
         <appender-ref ref="SERVER_FILE"/>
     </logger>
-    <logger name="com.gordondickens.bcf" level="debug">
+    <logger name="com.gordondickens.bcf" level="trace">
         <appender-ref ref="SERVER_FILE"/>
     </logger>
     <!--<logger name="org.springframework.web" level="debug">-->
         <!--<appender-ref ref="SERVER_FILE"/>-->
     <!--</logger>-->
-    <logger name="org.springframework" level="debug">
+    <logger name="org.springframework" level="trace">
         <appender-ref ref="SERVER_FILE"/>
     </logger>
       
     <root level="info">
         <appender-ref ref="SERVER_FILE"/>
-        <appender-ref ref="STDOUT"/>
+        <!--<appender-ref ref="STDOUT"/>-->
     </root>
 </configuration>

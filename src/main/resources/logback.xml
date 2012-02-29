@@ -2,7 +2,7 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
-    <property resource="logconfig/logging.properties" />
+    <property resource="logging.properties" />
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
@@ -32,31 +32,33 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.cloudfoundry" level="trace" />
-
 	<logger name="com.gordondickens" level="debug" />
-	<logger name="org.springframework" level="warn" />
+	<logger name="org.cloudfoundry" level="trace" />
+    <logger name="org.apache.tiles" level="warn" />
 
-	<logger name="org.springframework.beans.factory" level="debug" />
+	<logger name="com.springsource.batch" level="trace" />
+    <logger name="org.springframework.batch" level="trace" />
+    <logger name="org.springframework.integration" level="trace" />
 
-	<logger name="com.springsource.batch" level="debug" />
-	<logger name="org.springframework.batch" level="debug" />
-	<logger name="org.springframework.data" level="debug" />
-    <logger name="org.springframework.web" level="trace" />
-    <logger name="org.apache.tiles" level="debug" />
-    <logger name="org.springframework.transaction" level="info" />
+	<logger name="org.springframework.beans.factory" level="warn" />
+    <logger name="org.springframework.data" level="warn" />
+    <logger name="org.springframework.web" level="warn" />
+    <logger name="org.springframework.transaction" level="warn" />
 
-    <logger name="com.gordondickens.bcf" level="debug">
-        <appender-ref ref="file"/>
-    </logger>
+    <!--<logger name="com.gordondickens.bcf" level="debug" additivity="false">-->
+        <!--<appender-ref ref="file"/>-->
+    <!--</logger>-->
 
-    <!--<logger name="org.springframework.web" level="debug">-->
+    <!--<logger name="org.springframework.web" level="debug" additivity="false">-->
     <!--<appender-ref ref="file"/>-->
     <!--</logger>-->
 
-    <logger name="org.springframework" level="debug">
-        <appender-ref ref="file"/>
-    </logger>
+    <!--<logger name="org.springframework" level="debug" additivity="false">-->
+        <!--<appender-ref ref="file"/>-->
+    <!--</logger>-->
+    <!--<logger name="com.springsource" level="debug" additivity="false">-->
+        <!--<appender-ref ref="file"/>-->
+    <!--</logger>-->
 
 	<root level="warn">
 		<appender-ref ref="console" />

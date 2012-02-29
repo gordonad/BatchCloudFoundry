@@ -1,11 +1,5 @@
 package com.gordondickens.bcf.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.sql.DataSource;
-
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
 import org.springframework.batch.core.configuration.support.MapJobRegistry;
@@ -18,8 +12,10 @@ import org.springframework.batch.core.repository.support.JobRepositoryFactoryBea
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-import org.springframework.jmx.export.MBeanExporter;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
 
 @Configuration
 public class BatchInfrastructureConfig {
@@ -61,8 +57,7 @@ public class BatchInfrastructureConfig {
 
 	@Bean
 	public JobRegistry jobRegistry() {
-		JobRegistry bean = new MapJobRegistry();
-		return bean;
+        return new MapJobRegistry();
 	}
 
 	@Bean

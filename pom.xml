@@ -5,7 +5,7 @@
 
     <groupId>com.gordondickens.bcf</groupId>
     <artifactId>BatchCloudFoundry</artifactId>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
 
     <packaging>war</packaging>
     <name>BatchCloudFoundry</name>
@@ -81,7 +81,7 @@
         <maven.war.plugin>2.2</maven.war.plugin>
         <mockito.version>1.9.0</mockito.version>
         <mysql.version>5.1.18</mysql.version>
-        <outputFile>buildResults.txt</outputFile>
+        <!--<outputFile>testResults.txt</outputFile>-->
         <plexus.utils.version>3.0</plexus.utils.version>
         <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -275,17 +275,11 @@
             <artifactId>jstl-impl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
-
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${jodatime.version}</version>
         </dependency>
-        <!-- <dependency>
-              <groupId>joda-time</groupId>
-              <artifactId>joda-time-jsptags</artifactId>
-              <version>${jodatime.jsp.version}</version>
-              </dependency> -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time-hibernate</artifactId>
@@ -309,11 +303,6 @@
             <artifactId>aspectjrt</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.aspectj</groupId>-->
-            <!--<artifactId>aspectjweaver</artifactId>-->
-            <!--<version>${aspectj.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>

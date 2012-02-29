@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.AbstractEnvironment;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -28,6 +28,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 
 @Configuration
+@Import({BatchInfrastructureConfig.class, ProductJobConfig.class})
 public abstract class ApplicationConfigCommon {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationConfigCommon.class);
     @Inject
@@ -61,24 +62,6 @@ public abstract class ApplicationConfigCommon {
         return jpaTransactionManager;
     }
 
-
-    /*
-     <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="com.gordondickens.orm.domain"/>
-
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="true"/>
-                <property name="database" value="HSQL"/>
-            </bean>
-        </property>
-    </bean>
-    */
-
-
     @Bean
     public LocalContainerEntityManagerFactoryBean containerEntityManagerFactory() throws Exception {
         LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -95,7 +78,6 @@ public abstract class ApplicationConfigCommon {
         // No persistence.xml - thanks to packagesToScan
         return localContainerEntityManagerFactoryBean;
     }
-
 
     @Bean
     public JpaRepositoryFactory jpaRepository() throws Exception {
