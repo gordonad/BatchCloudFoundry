@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
+import org.springframework.data.jpa.support.ClasspathScanningPersistenceUnitPostProcessor;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -79,11 +80,11 @@ public abstract class ApplicationConfigCommon {
         return localContainerEntityManagerFactoryBean;
     }
 
+
+
     @Bean
     public JpaRepositoryFactory jpaRepository() throws Exception {
-
-        JpaRepositoryFactory jpaRepositoryFactory = new JpaRepositoryFactory(entityManager());
-        return jpaRepositoryFactory;
+        return new JpaRepositoryFactory(entityManager());
     }
 
     @Bean
@@ -115,9 +116,6 @@ public abstract class ApplicationConfigCommon {
 
     @Bean
     public ProductTrxRepository productTrxRepository() throws Exception {
-//        JpaEntityInformation<Product, Long> information = new JpaMetamodelEntityInformation<Product, Long>(Product.class,
-//                entityManager().getMetamodel());
-
         return jpaRepository().getRepository(ProductTrxRepository.class);
     }
 

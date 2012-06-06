@@ -4,11 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.AbstractEnvironment;
-import org.springframework.core.env.StandardEnvironment;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
-import java.util.Properties;
 
 public class AppEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(AppEnvironment.class);
@@ -42,7 +40,7 @@ public class AppEnvironment {
 
     @PostConstruct
     public void afterInstantiation() {
-        logger.debug(this.toString());
+        logger.trace(this.toString());
     }
 
     public void setSystemProperties(Map<String,Object>  systemProperties) {

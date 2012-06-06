@@ -2,51 +2,56 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
-    <property resource="logging.properties" />
+    <property resource="logging.properties"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>
 
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
             <pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
         </encoder>
-	</appender>
+    </appender>
 
-	<appender name="file"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${user.dir}/${log.file}.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- daily rollover -->
-			<fileNamePattern>${user.dir}/${log.file}.%d{yyyy-MM-dd}.log.zip
-			</fileNamePattern>
+    <appender name="file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.dir}/logs/bcf.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${user.dir}/logs/bcf.%d{yyyy-MM-dd}.log.zip
+            </fileNamePattern>
 
-			<!-- days of history to keep -->
-			<maxHistory>5</maxHistory>
-		</rollingPolicy>
+            <!-- days of history to keep -->
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
 
-		<encoder>
+        <encoder>
             <pattern>%d{HH:mm}|%.-1level|%-40.40logger{0}|%msg%n</pattern>
             <!--<pattern>%-4relative [%thread] %-5level %logger{5} - %msg%n%n</pattern>-->
-		</encoder>
-	</appender>
+        </encoder>
+    </appender>
 
-	<logger name="com.gordondickens" level="debug" />
-	<logger name="org.cloudfoundry" level="trace" />
-    <logger name="org.apache.tiles" level="warn" />
+    <logger name="com.gordondickens.bcf" level="debug"/>
+    <!--<logger name="org.springframework.web" level="debug"/>-->
+    <logger name="org.springframework.data" level="debug"/>
+    <logger name="org.springframework.orm" level="debug"/>
+    <logger name="org.springframework.jdbc" level="debug"/>
+    <logger name="org.springframework.transaction" level="debug"/>
+    <!--<logger name="org.cloudfoundry" level="trace"/>-->
+    <!--<logger name="com.springsource.batch" level="trace"/>-->
+    <!--<logger name="org.springframework.batch" level="trace"/>-->
+    <!--<logger name="org.springframework.integration" level="trace"/>-->
 
-	<logger name="com.springsource.batch" level="trace" />
-    <logger name="org.springframework.batch" level="trace" />
-    <logger name="org.springframework.integration" level="trace" />
 
-	<logger name="org.springframework.beans.factory" level="warn" />
-    <logger name="org.springframework.data" level="warn" />
-    <logger name="org.springframework.web" level="warn" />
-    <logger name="org.springframework.transaction" level="warn" />
+    <!--<logger name="org.springframework.beans.factory" level="warn"/>-->
+    <!--<logger name="org.apache.tiles" level="warn">-->
+    <!--<logger name="org.springframework.data" level="warn"/>-->
+    <!--<logger name="org.springframework.web" level="warn"/>-->
+    <!--<logger name="org.springframework.transaction" level="warn"/>-->
 
     <!--<logger name="com.gordondickens.bcf" level="debug" additivity="false">-->
-        <!--<appender-ref ref="file"/>-->
+    <!--<appender-ref ref="file"/>-->
     <!--</logger>-->
 
     <!--<logger name="org.springframework.web" level="debug" additivity="false">-->
@@ -54,13 +59,14 @@
     <!--</logger>-->
 
     <!--<logger name="org.springframework" level="debug" additivity="false">-->
-        <!--<appender-ref ref="file"/>-->
+    <!--<appender-ref ref="file"/>-->
     <!--</logger>-->
     <!--<logger name="com.springsource" level="debug" additivity="false">-->
-        <!--<appender-ref ref="file"/>-->
+    <!--<appender-ref ref="file"/>-->
     <!--</logger>-->
 
-	<root level="warn">
-		<appender-ref ref="console" />
-	</root>
+    <root level="error">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
 </configuration>
