@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:amqp="http://www.springframework.org/schema/integration/amqp"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/integration
+         http://www.springframework.org/schema/integration/spring-integration.xsd
+         http://www.springframework.org/schema/integration/amqp
+         http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+         http://www.springframework.org/schema/batch
+         http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+
+    <!-- ************ PARTITION MASTER - PARTITION MASTER ************ -->
+    <batch:step id="endOfDayMaintenance">
+        <batch:partition partitioner="partitioner" handler="partitionHandler"/>
+    </batch:step>
+
+
+    <!--Creates a set of empty ExecutionContext instances labeling them as-->
+    <!--partition0, partition1, ..., partitionN, where N is the grid size-->
+    <bean id="partitioner"
+          class="org.springframework.batch.core.partition.support.SimplePartitioner"/>
+
+
+    <!--send instructions to remote workers and receive their responses -->
+    <bean id="partitionHandler"
+          class="org.springframework.batch.integration.partition.MessageChannelPartitionHandler">
+        <property name="gridSize"
+                  value="${number.of.workers}"/>
+        <property name="messagingOperations">
+            <bean class="org.springframework.integration.core.AsyncMessagingTemplate">
+                <property name="defaultChannel" ref="requestChannel"/>
+                <property name="receiveTimeout" value="${batch.receive.timeout:100000}"/>
+            </bean>
+        </property>
+        <property name="stepName" value="remoteWorker"/>
+    </bean>
+
+    <!-- ************ REMOTE PARTITION WORKER  ************ -->
+    <step id="remoteWorker" xmlns="http://www.springframework.org/schema/batch">
+        <tasklet transaction-manager="transactionManager">
+            <chunk
+                    reader="myJobReader"
+                    writer="myJobWriter"
+                    commit-interval="${job.commit.interval}"
+                    skip-limit="${job.skip.limit}">
+            </chunk>
+        </tasklet>
+    </step>
+
+    <int:channel id="requestChannel">
+        <int:interceptors>
+            <int:wire-tap channel="msgLogger"/>
+        </int:interceptors>
+    </int:channel>
+
+    <amqp:outbound-gateway
+            request-channel="requestChannel"
+            reply-channel="responseChannel"
+            amqp-template="rabbitTemplate"
+            exchange-name="${job.message.exchange}"
+            routing-key="${job.message.routing.key}"
+            order="1"/>
+
+    <int:channel id="stepRequestChannel"/>
+    <int:channel id="stepResponseChannel">
+        <int:queue capacity="10"/>
+    </int:channel>
+
+
+    <int:service-activator
+            id="remoteStepHandler"
+            ref="stepExecutionRequestHandler"
+            input-channel="stepRequestChannel"
+            output-channel="stepResponseChannel">
+        <int:poller fixed-rate="3" time-unit="SECONDS"/>
+    </int:service-activator>
+
+    <!-- Worker Side - Remote Partitioning of Job Via Messaging -->
+    <bean id="stepExecutionRequestHandler"
+          class="org.springframework.batch.integration.partition.StepExecutionRequestHandler">
+        <property name="jobExplorer" ref="jobExplorer"/>
+        <property name="stepLocator" ref="stepLocator"/>
+    </bean>
+
+    <bean id="jobExplorer"
+          class="org.springframework.batch.core.explore.support.JobExplorerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="stepLocator"
+          class="org.springframework.batch.integration.partition.BeanFactoryStepLocator"/>
+
+
+    <amqp:inbound-channel-adapter
+            id="amqpInboundChannelAdapter"
+            auto-startup="true"
+            queue-names="${bcf.jobResponseQueue}"
+            connection-factory="rabbitConnectionFactory"
+            channel="stepResponseChannel"/>
+
+</beans>

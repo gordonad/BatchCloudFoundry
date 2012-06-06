@@ -34,6 +34,16 @@
 		<param-value>true</param-value>
 	</context-param>
 
+    <filter>
+        <filter-name>TeeFilter</filter-name>
+        <filter-class>ch.qos.logback.access.servlet.TeeFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>TeeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

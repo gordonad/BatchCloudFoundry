@@ -49,9 +49,9 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 // This is a Unit Test, do not include Spring Context Config
-public class BatchProductTest {
+public class BatchProductTests {
     private static final Logger logger = LoggerFactory
-            .getLogger(BatchProductTest.class);
+            .getLogger(BatchProductTests.class);
 
     private JobLauncherTestUtils jobLauncherTestUtils;
     private SimpleJobRepository jobRepository;

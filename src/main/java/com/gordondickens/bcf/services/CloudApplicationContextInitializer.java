@@ -24,19 +24,15 @@ public class CloudApplicationContextInitializer implements
 					env.getCloudApiUri());
 			// System.out.println("cloud API: " + env.getCloudApiUri());
 			applicationContext.getEnvironment().setActiveProfiles(Env.CLOUDFOUNDRY);
-			applicationContext.refresh();
-// TODO: Test Heroku Environment Determinant to Switch Configuration
-
-        } else if (applicationContext.getEnvironment().getActiveProfiles().toString().toLowerCase().contains("heroku")) {
+        } else if (applicationContext.getEnvironment().getActiveProfiles().toString().toLowerCase().contains(Env.HEROKU)) {
             logger.info("Application running in cloud with API URL '{}'",
                     env.getCloudApiUri());
             // System.out.println("cloud API: " + env.getCloudApiUri());
             applicationContext.getEnvironment().setActiveProfiles(Env.HEROKU);
-            applicationContext.refresh();
         } else {
 			logger.info("Application running local");
 			applicationContext.getEnvironment().setActiveProfiles(Env.LOCAL);
-		}
-	}
-
+        }
+        applicationContext.refresh();
+    }
 }

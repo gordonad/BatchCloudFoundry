@@ -1,11 +1,8 @@
 package com.gordondickens.bcf.rabbit;
 
-/**
- * @author gDickens
- * 
- *         String expected automatically marshalled into payload
- * 
- */
+import org.springframework.batch.core.StepExecution;
+
+
 public interface RabbitGateway {
-	public void send(String payload);
+    public StepExecution send(String payload);
 }

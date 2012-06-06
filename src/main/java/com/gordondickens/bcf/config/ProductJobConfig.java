@@ -55,7 +55,8 @@ public class ProductJobConfig {
 		bean.setTransactionManager(transactionManager);
 		bean.setJobRepository(jobRepository);
 		bean.setStartLimit(100);
-		return bean;
+        bean.afterPropertiesSet();
+        return bean;
 	}
 
 	@Bean
@@ -67,7 +68,8 @@ public class ProductJobConfig {
 				"description" });
 		bean.setLineTokenizer(tokenizer);
 		bean.setFieldSetMapper(new BeanWrapperFieldSetMapper<Product>());
-		return bean;
+        bean.afterPropertiesSet();
+        return bean;
 
 	}
 
@@ -82,7 +84,7 @@ public class ProductJobConfig {
 		bean.setResource(resource);
 		bean.setLinesToSkip(1);
 		bean.setLineMapper(productLineMapper());
-		return bean;
+        return bean;
 	}
 
 	/**
@@ -130,7 +132,8 @@ public class ProductJobConfig {
 		steps.add(step);
 		// Job <- Steps
 		bean.setSteps(steps);
-		return bean;
+        bean.afterPropertiesSet();
+        return bean;
 	}
 
 	public void setJobRepository(JobRepository jobRepository) {
