@@ -54,7 +54,7 @@
         <jstl.version>1.2</jstl.version>
         <jta.version>1.1</jta.version>
         <junit.version>4.10</junit.version>
-        <logback.version>1.0.5</logback.version>
+        <logback.version>1.0.6</logback.version>
 
         <maven.assembly.plugin>2.3</maven.assembly.plugin>
         <maven.clean.plugin>2.4.1</maven.clean.plugin>
@@ -70,6 +70,7 @@
         <maven.install.plugin>2.3.1</maven.install.plugin>
         <maven.jar.plugin>2.4</maven.jar.plugin>
         <maven.jetty.plugin>8.1.3.v20120416</maven.jetty.plugin>
+        <maven.plugin.plugin>3.0</maven.plugin.plugin>
         <maven.project.info.reports.plugin>2.4</maven.project.info.reports.plugin>
         <maven.release.plugin>2.2.2</maven.release.plugin>
         <maven.resources.plugin>2.5</maven.resources.plugin>
@@ -90,14 +91,15 @@
         <rjc.version>0.7</rjc.version>
         <servlet.version>2.5</servlet.version>
         <skipTests>false</skipTests>
-        <slf4j.version>1.6.5</slf4j.version>
+        <slf4j.version>1.6.6</slf4j.version>
         <spring.amqp.version>1.1.1.RELEASE</spring.amqp.version>
         <spring.batch.admin.version>1.2.2.BUILD-SNAPSHOT</spring.batch.admin.version>
         <spring.batch.version>2.1.8.RELEASE</spring.batch.version>
         <spring.data.jpa.version>1.1.0.RELEASE</spring.data.jpa.version>
+        <spring.data.commons.version>1.3.1.RELEASE</spring.data.commons.version>
         <spring.integration.version>2.2.0.M2</spring.integration.version>
         <spring.redis.version>1.0.0.RELEASE</spring.redis.version>
-        <spring.retry.version>1.0.1.RELEASE</spring.retry.version>
+        <spring.retry.version>1.0.2.RELEASE</spring.retry.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <spring.version>3.2.0.M1</spring.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
@@ -106,7 +108,7 @@
         <tiles.version>2.2.2</tiles.version>
         <validation.version>1.0.0.GA</validation.version>
         <wtp.version>2.0</wtp.version>
-        <xbean.version>3.11</xbean.version>
+        <xbean.version>3.11.1</xbean.version>
         <xerces.version>2.10.0</xerces.version>
         <xstream.version>1.3.1</xstream.version>
     </properties>
@@ -121,6 +123,10 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.batch</groupId>
@@ -525,6 +531,11 @@
                         <url>${project.name}.cloudfoundry.com</url>
                         <memory>${cloudfoundry.memory}</memory>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven.plugin.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -939,6 +950,11 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-jpa</artifactId>
                 <version>${spring.data.jpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons-core</artifactId>
+                <version>${spring.data.commons.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.aspectj</groupId>

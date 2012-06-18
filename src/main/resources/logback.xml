@@ -43,7 +43,6 @@
     <!--<logger name="org.springframework.batch" level="trace"/>-->
     <!--<logger name="org.springframework.integration" level="trace"/>-->
 
-
     <!--<logger name="org.springframework.beans.factory" level="warn"/>-->
     <!--<logger name="org.apache.tiles" level="warn">-->
     <!--<logger name="org.springframework.data" level="warn"/>-->
@@ -51,17 +50,6 @@
     <!--<logger name="org.springframework.transaction" level="warn"/>-->
 
     <!--<logger name="com.gordondickens.bcf" level="debug" additivity="false">-->
-    <!--<appender-ref ref="file"/>-->
-    <!--</logger>-->
-
-    <!--<logger name="org.springframework.web" level="debug" additivity="false">-->
-    <!--<appender-ref ref="file"/>-->
-    <!--</logger>-->
-
-    <!--<logger name="org.springframework" level="debug" additivity="false">-->
-    <!--<appender-ref ref="file"/>-->
-    <!--</logger>-->
-    <!--<logger name="com.springsource" level="debug" additivity="false">-->
     <!--<appender-ref ref="file"/>-->
     <!--</logger>-->
 

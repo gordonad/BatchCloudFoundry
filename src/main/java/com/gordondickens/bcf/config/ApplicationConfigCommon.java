@@ -1,5 +1,6 @@
 package com.gordondickens.bcf.config;
 
+
 import com.gordondickens.bcf.entity.Product;
 import com.gordondickens.bcf.repository.ProductRepository;
 import com.gordondickens.bcf.repository.ProductTrxRepository;
@@ -15,10 +16,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-import org.springframework.data.jpa.support.ClasspathScanningPersistenceUnitPostProcessor;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -56,6 +57,13 @@ public abstract class ApplicationConfigCommon {
     }
 
     @Bean
+    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
+
+
+    }
+
+
+    @Bean
     public PlatformTransactionManager transactionManager() throws Exception {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setEntityManagerFactory(containerEntityManagerFactory().getObject());
@@ -70,7 +78,7 @@ public abstract class ApplicationConfigCommon {
         localContainerEntityManagerFactoryBean.setPackagesToScan(Product.class.getPackage().getName());
 
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-//        jpaVendorAdapter.setDatabasePlatform(getDialect());
+        jpaVendorAdapter.setDatabase(Database.valueOf(getDatabaseVendor()));
         jpaVendorAdapter.setShowSql(true);
         jpaVendorAdapter.setGenerateDdl(true);
 
@@ -79,7 +87,6 @@ public abstract class ApplicationConfigCommon {
         // No persistence.xml - thanks to packagesToScan
         return localContainerEntityManagerFactoryBean;
     }
-
 
 
     @Bean
