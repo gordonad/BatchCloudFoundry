@@ -56,11 +56,11 @@ public abstract class ApplicationConfigCommon {
         return ds;
     }
 
-    @Bean
-    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
-
-
-    }
+//    @Bean
+//    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
+//
+//
+//    }
 
 
     @Bean
@@ -97,7 +97,6 @@ public abstract class ApplicationConfigCommon {
     @Bean
     public EntityManager entityManager() throws Exception {
         if (containerEntityManagerFactory() == null) logger.debug("1. CEMF IS NULL");
-
 
         EntityManager entityManager = null;
 

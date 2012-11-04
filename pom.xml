@@ -13,26 +13,26 @@
     <name>BatchCloudFoundry</name>
 
     <properties>
-        <aspectj.version>1.7.0.RC1</aspectj.version>
+        <aspectj.version>1.7.1</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
         <cloudfoundry.memory>256</cloudfoundry.memory>
-        <cloudfoundry.version>0.8.1</cloudfoundry.version>
+        <cloudfoundry.version>0.8.2</cloudfoundry.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.codec.version>1.6</commons.codec.version>
+        <commons.codec.version>1.7</commons.codec.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.dbcp.version>1.4</commons.dbcp.version>
         <commons.digester.version>2.1</commons.digester.version>
         <commons.exec.version>1.1</commons.exec.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.httpclient.version>3.1</commons.httpclient.version>
-        <commons.io.version>2.3</commons.io.version>
+        <commons.io.version>2.4</commons.io.version>
         <commons.lang.version>3.1</commons.lang.version>
         <commons.net.version>3.1</commons.net.version>
         <commons.pool.version>1.6</commons.pool.version>
         <commons.validator.version>1.4.0</commons.validator.version>
         <dom4j.version>1.6.1</dom4j.version>
         <dp4j.version>1.2</dp4j.version>
-        <ehcache.version>2.5.2</ehcache.version>
+        <ehcache.version>2.6.0</ehcache.version>
         <java.el.version>2.2</java.el.version>
         <flexjson.version>2.1</flexjson.version>
         <geronimo.jee.version>1.0.1</geronimo.jee.version>
@@ -40,12 +40,13 @@
         <hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
         <hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
         <hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
-        <hibernate.version>4.1.4.Final</hibernate.version>
-        <hsqldb.version>2.2.8</hsqldb.version>
+        <hibernate.version>4.1.8.Final</hibernate.version>
+        <hsqldb.version>2.2.9</hsqldb.version>
         <icu4j.version>49.1</icu4j.version>
         <jasypt.version>1.9.0</jasypt.version>
         <java.version>1.6</java.version>
-        <jaxb.version>2.2.4</jaxb.version>
+        <jaxb.version>2.2.7</jaxb.version>
+        <jaxb.impl.version>2.2.7-b41</jaxb.impl.version>
         <jodatime.version>2.1</jodatime.version>
         <jodatime.hibernate.version>1.3</jodatime.hibernate.version>
         <jodatime.jsp.version>1.0.2</jodatime.jsp.version>
@@ -54,66 +55,127 @@
         <jstl.version>1.2</jstl.version>
         <jta.version>1.1</jta.version>
         <junit.version>4.10</junit.version>
-        <logback.version>1.0.6</logback.version>
+        <logback.version>1.0.7</logback.version>
 
         <maven.assembly.plugin>2.3</maven.assembly.plugin>
-        <maven.clean.plugin>2.4.1</maven.clean.plugin>
+        <maven.clean.plugin>2.5</maven.clean.plugin>
         <maven.cloudfoundry.plugin>1.0.0.M1</maven.cloudfoundry.plugin>
-        <maven.compiler.plugin>2.4</maven.compiler.plugin>
-        <maven.dependency.plugin>2.4</maven.dependency.plugin>
+        <maven.compiler.plugin>2.5.1</maven.compiler.plugin>
+        <maven.dependency.plugin>2.5.1</maven.dependency.plugin>
         <maven.deploy.plugin>2.7</maven.deploy.plugin>
-        <maven.enforcer.plugin>1.0.1</maven.enforcer.plugin>
+        <maven.enforcer.plugin>1.1.1</maven.enforcer.plugin>
         <maven.exec.plugin>1.2.1</maven.exec.plugin>
-        <maven.failsafe.plugin>2.12</maven.failsafe.plugin>
+        <maven.failsafe.plugin>2.12.4</maven.failsafe.plugin>
         <maven.groovy.plugin>1.4</maven.groovy.plugin>
         <maven.help.plugin>2.1.1</maven.help.plugin>
-        <maven.install.plugin>2.3.1</maven.install.plugin>
+        <maven.install.plugin>2.4</maven.install.plugin>
         <maven.jar.plugin>2.4</maven.jar.plugin>
-        <maven.jetty.plugin>8.1.3.v20120416</maven.jetty.plugin>
-        <maven.plugin.plugin>3.0</maven.plugin.plugin>
-        <maven.project.info.reports.plugin>2.4</maven.project.info.reports.plugin>
-        <maven.release.plugin>2.2.2</maven.release.plugin>
-        <maven.resources.plugin>2.5</maven.resources.plugin>
-        <maven.source.plugin>2.1.2</maven.source.plugin>
-        <maven.surefire.plugin>2.12</maven.surefire.plugin>
+        <maven.jetty.plugin>8.1.7.v20120910</maven.jetty.plugin>
+        <maven.plugin.plugin>3.1</maven.plugin.plugin>
+        <maven.project.info.reports.plugin>2.5.1</maven.project.info.reports.plugin>
+        <maven.release.plugin>2.3.2</maven.release.plugin>
+        <maven.resources.plugin>2.6</maven.resources.plugin>
+        <maven.source.plugin>2.2.1</maven.source.plugin>
+        <maven.surefire.plugin>2.12.4</maven.surefire.plugin>
         <maven.test.failure.ignore>false</maven.test.failure.ignore>
         <maven.test.skip>false</maven.test.skip>
-        <maven.tomcat.plugin>2.0-beta-1</maven.tomcat.plugin>
+        <maven.tomcat.plugin>2.0</maven.tomcat.plugin>
         <maven.version.range>[2.2.1,3.1.0)</maven.version.range>
         <maven.versions.plugin>1.3.1</maven.versions.plugin>
-        <maven.war.plugin>2.2</maven.war.plugin>
-        <mockito.version>1.9.0</mockito.version>
-        <mysql.version>5.1.20</mysql.version>
-        <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
+        <maven.war.plugin>2.3</maven.war.plugin>
+        <mockito.version>1.9.5</mockito.version>
+        <mysql.version>5.1.21</mysql.version>
+        <postgresql.version>9.1-902.jdbc4</postgresql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <rabbit.version>2.7.0</rabbit.version>
         <redis.version>2.1.0</redis.version>
         <rjc.version>0.7</rjc.version>
         <servlet.version>2.5</servlet.version>
         <skipTests>false</skipTests>
-        <slf4j.version>1.6.6</slf4j.version>
-        <spring.amqp.version>1.1.1.RELEASE</spring.amqp.version>
+        <slf4j.version>1.7.2</slf4j.version>
+        <spring.amqp.version>1.1.2.RELEASE</spring.amqp.version>
         <spring.batch.admin.version>1.2.2.BUILD-SNAPSHOT</spring.batch.admin.version>
-        <spring.batch.version>2.1.8.RELEASE</spring.batch.version>
-        <spring.data.jpa.version>1.1.0.RELEASE</spring.data.jpa.version>
-        <spring.data.commons.version>1.3.1.RELEASE</spring.data.commons.version>
-        <spring.integration.version>2.2.0.M2</spring.integration.version>
-        <spring.redis.version>1.0.0.RELEASE</spring.redis.version>
+        <spring.batch.version>2.1.9.RELEASE</spring.batch.version>
+        <spring.data.jpa.version>1.2.0.RELEASE</spring.data.jpa.version>
+        <spring.data.commons.version>1.4.0.RELEASE</spring.data.commons.version>
+        <spring.integration.version>2.2.0.RC2</spring.integration.version>
+        <spring.redis.version>1.0.2.RELEASE</spring.redis.version>
         <spring.retry.version>1.0.2.RELEASE</spring.retry.version>
-        <spring.security.version>3.1.0.RELEASE</spring.security.version>
-        <spring.version>3.2.0.M1</spring.version>
+        <spring.security.version>3.1.3.RELEASE</spring.security.version>
+        <spring.version>3.2.0.RC1</spring.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
         <stax.version>1.0.1</stax.version>
         <surefire.reportFormat>plain</surefire.reportFormat>
         <tiles.version>2.2.2</tiles.version>
         <validation.version>1.0.0.GA</validation.version>
         <wtp.version>2.0</wtp.version>
-        <xbean.version>3.11.1</xbean.version>
+        <xbean.version>3.12</xbean.version>
         <xerces.version>2.10.0</xerces.version>
         <xstream.version>1.3.1</xstream.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.idevlab</groupId>
+            <artifactId>rjc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-file</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-jmx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+
+
+
         <!-- CloudFoundry -->
         <dependency>
             <groupId>org.cloudfoundry</groupId>
@@ -893,17 +955,17 @@
         <repository>
             <id>spring.maven.release</id>
             <name>Spring Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
+            <url>http://repo.springframework.org/release</url>
         </repository>
         <repository>
             <id>spring.maven.milestone</id>
             <name>Spring Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
+            <url>http://repo.springframework.org/milestone</url>
         </repository>
         <repository>
             <id>spring.maven.snapshot</id>
             <name>Spring Snapshot Repository</name>
-            <url>http://maven.springframework.org/snapshot</url>
+            <url>http://repo.springframework.org/snapshot</url>
         </repository>
         <repository>
             <id>repository.springsource.com-maven-bundles-external</id>
@@ -923,12 +985,12 @@
         <pluginRepository>
             <id>spring-maven-release</id>
             <name>Spring Maven Release Repository</name>
-            <url>http://maven.springframework.org/release</url>
+            <url>http://repo.springframework.org/release</url>
         </pluginRepository>
         <pluginRepository>
             <id>spring-maven-milestone</id>
             <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
+            <url>http://repo.springframework.org/milestone</url>
         </pluginRepository>
         <pluginRepository>
             <id>repository.springsource.com-maven-bundles-external</id>
@@ -1069,7 +1131,7 @@
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>${jaxb.version}</version>
+                <version>${jaxb.impl.version}</version>
             </dependency>
             <dependency>
                 <groupId>stax</groupId>
@@ -1153,17 +1215,17 @@
                 <artifactId>spring-js-resources</artifactId>
                 <version>${spring.webflow.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-asm</artifactId>
-                <version>${spring.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.springframework</groupId>-->
+                <!--<artifactId>spring-asm</artifactId>-->
+                <!--<version>${spring.version}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>commons-logging</groupId>-->
+                        <!--<artifactId>commons-logging</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aspects</artifactId>
@@ -1355,8 +1417,6 @@
                 <artifactId>rjc</artifactId>
                 <version>${rjc.version}</version>
             </dependency>
-
-
             <dependency>
                 <groupId>javax.transaction</groupId>
                 <artifactId>jta</artifactId>
