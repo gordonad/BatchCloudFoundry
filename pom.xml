@@ -27,12 +27,12 @@
         <commons.httpclient.version>3.1</commons.httpclient.version>
         <commons.io.version>2.4</commons.io.version>
         <commons.lang.version>3.1</commons.lang.version>
-        <commons.net.version>3.1</commons.net.version>
+        <commons.net.version>3.2</commons.net.version>
         <commons.pool.version>1.6</commons.pool.version>
         <commons.validator.version>1.4.0</commons.validator.version>
         <dom4j.version>1.6.1</dom4j.version>
         <dp4j.version>1.2</dp4j.version>
-        <ehcache.version>2.6.0</ehcache.version>
+        <ehcache.version>2.6.2</ehcache.version>
         <java.el.version>2.2</java.el.version>
         <flexjson.version>2.1</flexjson.version>
         <geronimo.jee.version>1.0.1</geronimo.jee.version>
@@ -42,7 +42,7 @@
         <hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
         <hibernate.version>4.1.8.Final</hibernate.version>
         <hsqldb.version>2.2.9</hsqldb.version>
-        <icu4j.version>49.1</icu4j.version>
+        <icu4j.version>50.1</icu4j.version>
         <jasypt.version>1.9.0</jasypt.version>
         <java.version>1.6</java.version>
         <jaxb.version>2.2.7</jaxb.version>
@@ -55,13 +55,13 @@
         <jstl.version>1.2</jstl.version>
         <jta.version>1.1</jta.version>
         <junit.version>4.10</junit.version>
-        <logback.version>1.0.7</logback.version>
+        <logback.version>1.0.9</logback.version>
 
-        <maven.assembly.plugin>2.3</maven.assembly.plugin>
+        <maven.assembly.plugin>2.4</maven.assembly.plugin>
         <maven.clean.plugin>2.5</maven.clean.plugin>
-        <maven.cloudfoundry.plugin>1.0.0.M1</maven.cloudfoundry.plugin>
-        <maven.compiler.plugin>2.5.1</maven.compiler.plugin>
-        <maven.dependency.plugin>2.5.1</maven.dependency.plugin>
+        <maven.cloudfoundry.plugin>1.0.0.M4</maven.cloudfoundry.plugin>
+        <maven.compiler.plugin>3.0</maven.compiler.plugin>
+        <maven.dependency.plugin>2.6</maven.dependency.plugin>
         <maven.deploy.plugin>2.7</maven.deploy.plugin>
         <maven.enforcer.plugin>1.1.1</maven.enforcer.plugin>
         <maven.exec.plugin>1.2.1</maven.exec.plugin>
@@ -70,9 +70,9 @@
         <maven.help.plugin>2.1.1</maven.help.plugin>
         <maven.install.plugin>2.4</maven.install.plugin>
         <maven.jar.plugin>2.4</maven.jar.plugin>
-        <maven.jetty.plugin>8.1.7.v20120910</maven.jetty.plugin>
-        <maven.plugin.plugin>3.1</maven.plugin.plugin>
-        <maven.project.info.reports.plugin>2.5.1</maven.project.info.reports.plugin>
+        <maven.jetty.plugin>9.0.0.M3</maven.jetty.plugin>
+        <maven.plugin.plugin>3.2</maven.plugin.plugin>
+        <maven.project.info.reports.plugin>2.6</maven.project.info.reports.plugin>
         <maven.release.plugin>2.3.2</maven.release.plugin>
         <maven.resources.plugin>2.6</maven.resources.plugin>
         <maven.source.plugin>2.2.1</maven.source.plugin>
@@ -81,10 +81,10 @@
         <maven.test.skip>false</maven.test.skip>
         <maven.tomcat.plugin>2.0</maven.tomcat.plugin>
         <maven.version.range>[2.2.1,3.1.0)</maven.version.range>
-        <maven.versions.plugin>1.3.1</maven.versions.plugin>
+        <maven.versions.plugin>2.0</maven.versions.plugin>
         <maven.war.plugin>2.3</maven.war.plugin>
         <mockito.version>1.9.5</mockito.version>
-        <mysql.version>5.1.21</mysql.version>
+        <mysql.version>5.1.22</mysql.version>
         <postgresql.version>9.1-902.jdbc4</postgresql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -94,16 +94,16 @@
         <servlet.version>2.5</servlet.version>
         <skipTests>false</skipTests>
         <slf4j.version>1.7.2</slf4j.version>
-        <spring.amqp.version>1.1.2.RELEASE</spring.amqp.version>
+        <spring.amqp.version>1.1.3.RELEASE</spring.amqp.version>
         <spring.batch.admin.version>1.2.2.BUILD-SNAPSHOT</spring.batch.admin.version>
         <spring.batch.version>2.1.9.RELEASE</spring.batch.version>
         <spring.data.jpa.version>1.2.0.RELEASE</spring.data.jpa.version>
         <spring.data.commons.version>1.4.0.RELEASE</spring.data.commons.version>
-        <spring.integration.version>2.2.0.RC2</spring.integration.version>
+        <spring.integration.version>2.2.0.RELEASE</spring.integration.version>
         <spring.redis.version>1.0.2.RELEASE</spring.redis.version>
         <spring.retry.version>1.0.2.RELEASE</spring.retry.version>
         <spring.security.version>3.1.3.RELEASE</spring.security.version>
-        <spring.version>3.2.0.RC1</spring.version>
+        <spring.version>3.2.0.RC2</spring.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
         <stax.version>1.0.1</stax.version>
         <surefire.reportFormat>plain</surefire.reportFormat>
@@ -319,6 +319,7 @@
     </dependencies>
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -446,7 +447,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${maven.jetty.plugin}</version>
                 <configuration>
@@ -707,7 +708,7 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
+                    <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
                     <version>${maven.jetty.plugin}</version>
                     <configuration>
@@ -1533,5 +1534,9 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
 
 </project>
