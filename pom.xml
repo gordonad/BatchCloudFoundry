@@ -7,12 +7,13 @@
 
     <groupId>com.gordondickens.bcf</groupId>
     <artifactId>BatchCloudFoundry</artifactId>
-    <version>0.14.0</version>
+    <version>0.21.0</version>
 
     <packaging>war</packaging>
     <name>BatchCloudFoundry</name>
 
     <properties>
+        <antlr.version>2.7.7</antlr.version>
         <aspectj.version>1.7.1</aspectj.version>
         <cglib.version>2.2.2</cglib.version>
         <cloudfoundry.memory>256</cloudfoundry.memory>
@@ -34,17 +35,18 @@
         <dp4j.version>1.2</dp4j.version>
         <ehcache.version>2.6.2</ehcache.version>
         <java.el.version>2.2</java.el.version>
-        <flexjson.version>2.1</flexjson.version>
         <geronimo.jee.version>1.0.1</geronimo.jee.version>
         <geronimo.jta.version>1.1.1</geronimo.jta.version>
+        <hamcrest.version>1.3</hamcrest.version>
         <hibernate.jmx.version>3.5.6-Final</hibernate.jmx.version>
         <hibernate.jpa.version>1.0.1.Final</hibernate.jpa.version>
         <hibernate.validator.version>4.3.0.Final</hibernate.validator.version>
-        <hibernate.version>4.1.8.Final</hibernate.version>
+        <hibernate.version>4.1.9.Final</hibernate.version>
         <hsqldb.version>2.2.9</hsqldb.version>
-        <icu4j.version>50.1</icu4j.version>
+        <icu4j.version>50.1.1</icu4j.version>
         <jasypt.version>1.9.0</jasypt.version>
-        <java.version>1.6</java.version>
+        <jboss-logging.version>3.1.2.GA</jboss-logging.version>
+        <jdk.version>1.6</jdk.version>
         <jaxb.version>2.2.7</jaxb.version>
         <jaxb.impl.version>2.2.7-b41</jaxb.impl.version>
         <jodatime.version>2.1</jodatime.version>
@@ -54,35 +56,41 @@
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
         <jta.version>1.1</jta.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.11</junit.version>
         <logback.version>1.0.9</logback.version>
-
-        <maven.assembly.plugin>2.4</maven.assembly.plugin>
-        <maven.clean.plugin>2.5</maven.clean.plugin>
-        <maven.cloudfoundry.plugin>1.0.0.M4</maven.cloudfoundry.plugin>
-        <maven.compiler.plugin>3.0</maven.compiler.plugin>
-        <maven.dependency.plugin>2.6</maven.dependency.plugin>
-        <maven.deploy.plugin>2.7</maven.deploy.plugin>
-        <maven.enforcer.plugin>1.1.1</maven.enforcer.plugin>
-        <maven.exec.plugin>1.2.1</maven.exec.plugin>
-        <maven.failsafe.plugin>2.12.4</maven.failsafe.plugin>
-        <maven.groovy.plugin>1.4</maven.groovy.plugin>
-        <maven.help.plugin>2.1.1</maven.help.plugin>
-        <maven.install.plugin>2.4</maven.install.plugin>
-        <maven.jar.plugin>2.4</maven.jar.plugin>
-        <maven.jetty.plugin>9.0.0.M3</maven.jetty.plugin>
-        <maven.plugin.plugin>3.2</maven.plugin.plugin>
-        <maven.project.info.reports.plugin>2.6</maven.project.info.reports.plugin>
-        <maven.release.plugin>2.3.2</maven.release.plugin>
-        <maven.resources.plugin>2.6</maven.resources.plugin>
-        <maven.source.plugin>2.2.1</maven.source.plugin>
-        <maven.surefire.plugin>2.12.4</maven.surefire.plugin>
-        <maven.test.failure.ignore>false</maven.test.failure.ignore>
-        <maven.test.skip>false</maven.test.skip>
-        <maven.tomcat.plugin>2.0</maven.tomcat.plugin>
+        <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
+        <maven-checkstyle-plugin.version>2.9.1</maven-checkstyle-plugin.version>
+        <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
+        <maven-cloudfoundry-plugin.version>1.0.0.M4</maven-cloudfoundry-plugin.version>
+        <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>2.7</maven-deploy-plugin.version>
+        <maven-doxia.version>1.3</maven-doxia.version>
+        <maven-enforcer-plugin.version>1.2</maven-enforcer-plugin.version>
+        <maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
+        <maven-failsafe-plugin.version>2.12.4</maven-failsafe-plugin.version>
+        <maven-findbugs-plugin.version>2.5.2</maven-findbugs-plugin.version>
+        <maven-groovy-plugin.version>1.5</maven-groovy-plugin.version>
+        <maven-help-plugin.version>2.1.1</maven-help-plugin.version>
+        <maven-install-plugin.version>2.4</maven-install-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-jetty-plugin.version>8.1.8.v20121106</maven-jetty-plugin.version>
+        <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
+        <maven-pdf-plugin.version>1.2</maven-pdf-plugin.version>
+        <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
+        <maven-pmd-plugin.version>2.7.1</maven-pmd-plugin.version>
+        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <maven-release-plugin.version>2.4</maven-release-plugin.version>
+        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-site-plugin.version>3.2</maven-site-plugin.version>
+        <maven-sonar-plugin.version>3.2</maven-sonar-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
+        <maven-taglist-plugin.version>2.4</maven-taglist-plugin.version>
+        <maven-tomcat-plugin.version>2.0</maven-tomcat-plugin.version>
         <maven.version.range>[2.2.1,3.1.0)</maven.version.range>
-        <maven.versions.plugin>2.0</maven.versions.plugin>
-        <maven.war.plugin>2.3</maven.war.plugin>
+        <maven-versions-plugin.version>2.0</maven-versions-plugin.version>
+        <maven-war-plugin.version>2.3</maven-war-plugin.version>
         <mockito.version>1.9.5</mockito.version>
         <mysql.version>5.1.22</mysql.version>
         <postgresql.version>9.1-902.jdbc4</postgresql.version>
@@ -103,7 +111,7 @@
         <spring.redis.version>1.0.2.RELEASE</spring.redis.version>
         <spring.retry.version>1.0.2.RELEASE</spring.retry.version>
         <spring.security.version>3.1.3.RELEASE</spring.security.version>
-        <spring.version>3.2.0.RC2</spring.version>
+        <spring.version>3.2.0.RELEASE</spring.version>
         <spring.webflow.version>2.3.1.RELEASE</spring.webflow.version>
         <stax.version>1.0.1</stax.version>
         <surefire.reportFormat>plain</surefire.reportFormat>
@@ -176,10 +184,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate.javax.persistence</groupId>-->
-        <!--<artifactId>hibernate-jpa-2.0-api</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -212,46 +216,38 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
-            <version>${logback.version}</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.flexjson</groupId>
-            <artifactId>flexjson</artifactId>
-            <version>${flexjson.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.transaction</groupId>
@@ -267,12 +263,10 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>${commons.dbcp.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
@@ -322,24 +316,34 @@
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven.war.plugin}</version>
+                <version>${maven-war-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <compilerArguments>
+                        <Xlint/>
+                        <verbose/>
+                    </compilerArguments>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <verbose>true</verbose>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven.resources.plugin}</version>
+                <version>${maven-resources-plugin.version}</version>
             </plugin>
 
             <!-- Failsafe Plugin for Integration Tests
@@ -347,7 +351,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven.failsafe.plugin}</version>
+                <version>${maven-failsafe-plugin.version}</version>
             </plugin>
 
             <!-- SureFire Plugin for Unit Tests
@@ -355,7 +359,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <printSummary>false</printSummary>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
@@ -364,7 +368,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>${maven.assembly.plugin}</version>
+                <version>${maven-assembly-plugin.version}</version>
                 <configuration>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -374,12 +378,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>${maven.deploy.plugin}</version>
+                <version>${maven-deploy-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven.dependency.plugin}</version>
+                <version>${maven-dependency-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>junit</groupId>
@@ -391,7 +395,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.plugin}</version>
+                <version>${maven-enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-banned-dependencies</id>
@@ -400,6 +404,8 @@
                         </goals>
                         <configuration>
                             <rules>
+                                <!-- Ensure no conflicting jar versions -->
+                                <DependencyConvergence/>
                                 <bannedDependencies>
                                     <searchTransitive>true</searchTransitive>
                                     <excludes>
@@ -416,7 +422,7 @@
                                     <version>${maven.version.range}</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>${java.version}</version>
+                                    <version>${jdk.version}</version>
                                 </requireJavaVersion>
                             </rules>
                             <fail>true</fail>
@@ -427,12 +433,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>${maven.release.plugin}</version>
+                <version>${maven-release-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${maven.versions.plugin}</version>
+                <version>${maven-versions-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.commons</groupId>
@@ -447,9 +453,9 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
+                <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${maven.jetty.plugin}</version>
+                <version>${maven-jetty-plugin.version}</version>
                 <configuration>
                     <webAppConfig>
                         <contextPath>/${project.name}</contextPath>
@@ -527,7 +533,7 @@
                 <plugin>
                     <groupId>org.cloudfoundry</groupId>
                     <artifactId>cf-maven-plugin</artifactId>
-                    <version>${maven.cloudfoundry.plugin}</version>
+                    <version>${maven-cloudfoundry-plugin.version}</version>
                     <configuration>
                         <server>mycloudfoundry-instance</server>
                         <target>http://api.cloudfoundry.com</target>
@@ -538,32 +544,32 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>${maven.plugin.plugin}</version>
+                    <version>${maven-plugin-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven.deploy.plugin}</version>
+                    <version>${maven-deploy-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>${maven.jar.plugin}</version>
+                    <version>${maven-jar-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>${maven.install.plugin}</version>
+                    <version>${maven-install-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven.release.plugin}</version>
+                    <version>${maven-release-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${maven.assembly.plugin}</version>
+                    <version>${maven-assembly-plugin.version}</version>
                     <configuration>
                         <descriptorRefs>
                             <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -573,26 +579,26 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>${maven.exec.plugin}</version>
+                    <version>${maven-exec-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin}</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven.source.plugin}</version>
+                    <version>${maven-source-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>${maven.clean.plugin}</version>
+                    <version>${maven-clean-plugin.version}</version>
                     <configuration>
                         <filesets>
                             <fileset>
@@ -614,7 +620,7 @@
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat6-maven-plugin</artifactId>
-                    <version>${maven.tomcat.plugin}</version>
+                    <version>${maven-tomcat-plugin.version}</version>
                     <configuration>
                         <systemProperties>
                             <com.sun.management.jmxremote>true</com.sun.management.jmxremote>
@@ -662,7 +668,7 @@
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>${maven.tomcat.plugin}</version>
+                    <version>${maven-tomcat-plugin.version}</version>
                     <configuration>
                         <systemProperties>
                             <com.sun.management.jmxremote>true</com.sun.management.jmxremote>
@@ -708,75 +714,14 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>${maven.jetty.plugin}</version>
-                    <configuration>
-                        <systemProperties>
-                            <systemProperty>
-                                <name>logback.configurationFile</name>
-                                <value>./src/main/resources/logback.xml</value>
-                            </systemProperty>
-                            <systemProperty>
-                                <name>com.sun.management.jmxremote</name>
-                                <value>true</value>
-                            </systemProperty>
-                            <systemProperty>
-                                <name>com.sun.management.jmxremote.port</name>
-                                <value>8050</value>
-                            </systemProperty>
-                            <systemProperty>
-                                <name>com.sun.management.jmxremote.ssl</name>
-                                <value>false</value>
-                            </systemProperty>
-                            <systemProperty>
-                                <name>com.sun.management.jmxremote.authenticate</name>
-                                <value>false</value>
-                            </systemProperty>
-                        </systemProperties>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>jcl-over-slf4j</artifactId>
-                            <version>${slf4j.version}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>slf4j-api</artifactId>
-                            <version>${slf4j.version}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.slf4j</groupId>
-                            <artifactId>jul-to-slf4j</artifactId>
-                            <version>${slf4j.version}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                        <dependency>
-                            <groupId>ch.qos.logback</groupId>
-                            <artifactId>logback-classic</artifactId>
-                            <version>${logback.version}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                        <dependency>
-                            <groupId>ch.qos.logback</groupId>
-                            <artifactId>logback-access</artifactId>
-                            <version>${logback.version}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven.failsafe.plugin}</version>
+                    <version>${maven-failsafe-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven.surefire.plugin}</version>
+                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <parallel>methods</parallel>
                         <threadCount>10</threadCount>
@@ -794,7 +739,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>${maven.dependency.plugin}</version>
+                    <version>${maven-dependency-plugin.version}</version>
                     <configuration>
                         <verbose>true</verbose>
                     </configuration>
@@ -814,12 +759,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven.resources.plugin}</version>
+                    <version>${maven-resources-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${maven.enforcer.plugin}</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-banned-dependencies</id>
@@ -845,7 +790,7 @@
                                         <version>${maven.version.range}</version>
                                     </requireMavenVersion>
                                     <requireJavaVersion>
-                                        <version>${java.version}</version>
+                                        <version>${jdk.version}</version>
                                     </requireJavaVersion>
                                 </rules>
                                 <fail>true</fail>
@@ -856,7 +801,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>${maven.versions.plugin}</version>
+                    <version>${maven-versions-plugin.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>junit</groupId>
@@ -868,12 +813,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-help-plugin</artifactId>
-                    <version>${maven.help.plugin}</version>
+                    <version>${maven-help-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
-                    <version>${maven.groovy.plugin}</version>
+                    <version>${maven-groovy-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>clean</phase>
@@ -886,10 +831,111 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-descriptor</id>
+                            <goals>
+                                <goal>attach-descriptor</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <reportPlugins>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-project-info-reports-plugin</artifactId>
+                                <version>${maven-project-info-reports-plugin.version}</version>
+                                <configuration>
+                                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-surefire-report-plugin</artifactId>
+                                <version>${maven-surefire-plugin.version}</version>
+                                <configuration>
+                                    <outputDirectory>${project.reporting.outputDirectory}/testresults</outputDirectory>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-checkstyle-plugin</artifactId>
+                                <version>${maven-checkstyle-plugin.version}</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-pmd-plugin</artifactId>
+                                <version>${maven-pmd-plugin.version}</version>
+                                <configuration>
+                                    <aggregate>true</aggregate>
+                                    <rulesets>
+                                        <ruleset>/rulesets/maven.xml</ruleset>
+                                        <ruleset>/rulesets/migrating_to_junit4.xml</ruleset>
+                                        <ruleset>/rulesets/design.xml</ruleset>
+                                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                                        <ruleset>/rulesets/typeresolution.xml</ruleset>
+                                    </rulesets>
+                                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                                    <!-- The minimum tokens before a violation -->
+                                    <minimumTokens>100</minimumTokens>
+                                    <!-- Turn off if no xref report -->
+                                    <linkXRef>true</linkXRef>
+                                    <verbose>true</verbose>
+                                    <targetJdk>${jdk.version}</targetJdk>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>findbugs-maven-plugin</artifactId>
+                                <version>${maven-findbugs-plugin.version}</version>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>versions-maven-plugin</artifactId>
+                                <version>${maven-versions-plugin.version}</version>
+                                <configuration>
+                                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                                    <xmlOutput>true</xmlOutput>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.codehaus.mojo</groupId>
+                                <artifactId>taglist-maven-plugin</artifactId>
+                                <version>${maven-taglist-plugin.version}</version>
+                                <configuration>
+                                    <aggregate>true</aggregate>
+                                </configuration>
+                            </plugin>
+                            <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-plugin-plugin</artifactId>
+                                <version>${maven-plugin-plugin.version}</version>
+                            </plugin>
+                        </reportPlugins>
+                        <locales>en</locales>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-module-markdown</artifactId>
+                            <version>${maven-doxia.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-site-renderer</artifactId>
+                            <version>${maven-doxia.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
             </plugins>
         </pluginManagement>
-
-
     </build>
 
     <repositories>
@@ -908,18 +954,6 @@
             <name>Spring Snapshot Repository</name>
             <url>http://repo.springframework.org/snapshot</url>
         </repository>
-        <repository>
-            <id>repository.springsource.com-maven-bundles-external</id>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-        <repository>
-            <id>repository.springsource.com-maven-bundles-milestone</id>
-            <url>http://repository.springsource.com/maven/bundles/milestone</url>
-        </repository>
-        <repository>
-            <id>repository.springsource.com-maven-bundles-release</id>
-            <url>http://repository.springsource.com/maven/bundles/release</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -932,18 +966,6 @@
             <id>spring-maven-milestone</id>
             <name>Spring Maven Milestone Repository</name>
             <url>http://repo.springframework.org/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>repository.springsource.com-maven-bundles-external</id>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>repository.springsource.com-maven-bundles-milestone</id>
-            <url>http://repository.springsource.com/maven/bundles/milestone</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>repository.springsource.com-maven-bundles-release</id>
-            <url>http://repository.springsource.com/maven/bundles/release</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -1157,15 +1179,15 @@
                 <version>${spring.webflow.version}</version>
             </dependency>
             <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>spring-asm</artifactId>-->
-                <!--<version>${spring.version}</version>-->
-                <!--<exclusions>-->
-                    <!--<exclusion>-->
-                        <!--<groupId>commons-logging</groupId>-->
-                        <!--<artifactId>commons-logging</artifactId>-->
-                    <!--</exclusion>-->
-                <!--</exclusions>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-asm</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+            <!--<exclusions>-->
+            <!--<exclusion>-->
+            <!--<groupId>commons-logging</groupId>-->
+            <!--<artifactId>commons-logging</artifactId>-->
+            <!--</exclusion>-->
+            <!--</exclusions>-->
             <!--</dependency>-->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -1370,6 +1392,18 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jta_1.1_spec</artifactId>
                 <version>${geronimo.jta.version}</version>
@@ -1531,6 +1565,16 @@
                 <groupId>com.ibm.icu</groupId>
                 <artifactId>icu4j</artifactId>
                 <version>${icu4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>${antlr.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${jboss-logging.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

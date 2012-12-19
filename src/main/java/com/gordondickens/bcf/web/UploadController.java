@@ -69,7 +69,7 @@ public class UploadController {
             logger.info("*******************************************");
         }
 
-        String processResults = "File '" + multipartFile.getOriginalFilename()+ "' uploaded successfully";
+        String processResults = "File '" + multipartFile.getOriginalFilename() + "' uploaded successfully";
         logger.info(processResults);
 
         redirectAttributes.addFlashAttribute("processResults", processResults);

@@ -71,7 +71,7 @@ public class ProductController {
                     (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1
                             : nrOfPages));
         } else {
-            uiModel.addAttribute("products", repository.findAllProducts());
+            uiModel.addAttribute("products", repository.findAll());
         }
         return "products/list";
     }
@@ -112,7 +112,7 @@ public class ProductController {
 
     @ModelAttribute("products")
     public Collection<Product> populateProducts() {
-        return repository.findAllProducts();
+        return repository.findAll();
     }
 
     String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -30,9 +31,11 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 
 @Configuration
+@EnableJpaRepositories(basePackages = {"com.gordondickens.bcf.repository"})
 @Import({BatchInfrastructureConfig.class, ProductJobConfig.class})
 public abstract class ApplicationConfigCommon {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationConfigCommon.class);
+
     @Inject
     private AbstractEnvironment environment;
 
@@ -55,12 +58,6 @@ public abstract class ApplicationConfigCommon {
         databasePopulator(ds);
         return ds;
     }
-
-//    @Bean
-//    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
-//
-//
-//    }
 
 
     @Bean

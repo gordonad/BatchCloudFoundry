@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 
-import java.util.*;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
@@ -136,9 +136,9 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
         @Override
         public String convert(Product product) {
             return product.getProductId() + " " +
-                   product.getStore() + " " +
-                   product.getQuantity() + " " +
-                   product.getDescription();
+                    product.getStore() + " " +
+                    product.getQuantity() + " " +
+                    product.getDescription();
         }
 
     }
@@ -147,9 +147,9 @@ public class ApplicationMvcConfig extends WebMvcConfigurerAdapter {
         @Override
         public String convert(ProductTrx productTrx) {
             return productTrx.getStore() + " " +
-                   productTrx.getQuantity() + " " +
-                   productTrx.getPrice() + " " +
-                   productTrx.getTrxDate();
+                    productTrx.getQuantity() + " " +
+                    productTrx.getPrice() + " " +
+                    productTrx.getTrxDate();
         }
 
     }
