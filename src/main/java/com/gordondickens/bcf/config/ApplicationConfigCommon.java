@@ -56,11 +56,11 @@ public abstract class ApplicationConfigCommon {
         return ds;
     }
 
-    @Bean
-    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
-
-
-    }
+//    @Bean
+//    public RepositoryInterfaceAwareBeanPostProcessor repositoryInterfaceAwareBeanPostProcessor() {
+//
+//
+//    }
 
 
     @Bean
