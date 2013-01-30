@@ -19,11 +19,18 @@
         <c:out value="${fn:replace(pageContext.response.locale, '_', '-')}" default="en"/>
     </c:set>
 
-    <script type="text/javascript">var djConfig = {parseOnLoad:false, isDebug:false, locale:'${fn:toLowerCase(userLocale)}'};</script>
+    <script type="text/javascript">var djConfig = {parseOnLoad: false, isDebug: false, locale: '${fn:toLowerCase(userLocale)}'};</script>
 
-    <script src="${dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
-    <script src="${spring_url}" type="text/javascript"><!-- /required for FF3 and Opera --></script>
-    <script src="${spring_dojo_url}" type="text/javascript"><!-- required for FF3 and Opera --></script>
+    <script src="${dojo_url}" type="text/javascript"><!--
+    required
+    for FF3 and
+    Opera --></script>
+    <script src="${spring_url}" type="text/javascript"><!--
+    /required for FF3 and Opera --></script>
+    <script src="${spring_dojo_url}" type="text/javascript"><!--
+    required
+    for FF3 and
+    Opera --></script>
     <script language="JavaScript" type="text/javascript">dojo.require("dojo.parser");</script>
 
 </jsp:root>

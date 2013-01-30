@@ -100,7 +100,7 @@
                 <spring:escapeBody javaScriptEscape="true">${field_invalid}</spring:escapeBody>
             </c:set>
             <script type="text/javascript">
-                Spring.addDecoration(new Spring.ElementDecoration({elementId:'_${sec_field}_id', widgetType:'dijit.form.ValidationTextBox', widgetAttrs:{promptMessage:'${sec_field_validation}', invalidMessage:'${sec_field_invalid}', required: ${required}}}));
+                Spring.addDecoration(new Spring.ElementDecoration({elementId: '_${sec_field}_id', widgetType: 'dijit.form.ValidationTextBox', widgetAttrs: {promptMessage: '${sec_field_validation}', invalidMessage: '${sec_field_invalid}', required: ${required}}}));
             </script>
         </div>
         <br/>

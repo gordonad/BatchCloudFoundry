@@ -11,9 +11,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
 
-   @Override
-   public Product saveProduct(Product product) {
-       return productRepository.save(product);
+    @Override
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
     }
 
 }

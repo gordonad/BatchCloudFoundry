@@ -107,7 +107,7 @@
                 escapeBody
                 javaScriptEscape = "true" >${dateTimePattern} < /spring:escapeBody>
                         < /c:set>
-                Spring.addDecoration(new Spring.ElementDecoration({elementId:'_${sec_field}_id', widgetType:'dijit.form.DateTextBox', widgetAttrs:{promptMessage:'${sec_field_validation}', invalidMessage:'${sec_field_invalid}', required: ${required}, constraints:{datePattern:'${sec_dateTimePattern}', required: ${required}}, datePattern:'${sec_dateTimePattern}'}})); </script>
+                Spring.addDecoration(new Spring.ElementDecoration({elementId: '_${sec_field}_id', widgetType: 'dijit.form.DateTextBox', widgetAttrs: {promptMessage: '${sec_field_validation}', invalidMessage: '${sec_field_invalid}', required: ${required}, constraints: {datePattern: '${sec_dateTimePattern}', required: ${required}}, datePattern: '${sec_dateTimePattern}'}})); </script>
         </div>
         <br/>
     </c:if>

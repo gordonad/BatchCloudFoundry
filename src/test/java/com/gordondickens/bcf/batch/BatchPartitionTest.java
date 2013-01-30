@@ -453,10 +453,10 @@ public class BatchPartitionTest {
     }
 
     private void logBeanFactory() {
-        
+
         logger.debug("*** Number of Beans in context is {}", bf.getBeanDefinitionCount());
 
-logger.debug("*****BEANS in BF {}", bf.toString());
+        logger.debug("*****BEANS in BF {}", bf.toString());
 
         String[] beans = bf.getBeanDefinitionNames();
         for (String o : beans) {

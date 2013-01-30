@@ -12,10 +12,10 @@ public class AppEnvironment {
     private static final Logger logger = LoggerFactory.getLogger(AppEnvironment.class);
 
     @Value("#{ systemProperties }")
-    private Map<String,Object> systemProperties;
+    private Map<String, Object> systemProperties;
 
     @Value("#{ systemEnvironment }")
-    private Map<String,Object> systemEnvironment;
+    private Map<String, Object> systemEnvironment;
 
     @Value("#{ environment }")
     private AbstractEnvironment environment;
@@ -43,11 +43,11 @@ public class AppEnvironment {
         logger.trace(this.toString());
     }
 
-    public void setSystemProperties(Map<String,Object>  systemProperties) {
+    public void setSystemProperties(Map<String, Object> systemProperties) {
         this.systemProperties = systemProperties;
     }
 
-    public void setSystemEnvironment(Map<String,Object>  systemEnvironment) {
+    public void setSystemEnvironment(Map<String, Object> systemEnvironment) {
         this.systemEnvironment = systemEnvironment;
     }
 

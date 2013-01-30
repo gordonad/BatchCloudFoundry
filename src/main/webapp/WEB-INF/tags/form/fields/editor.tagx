@@ -53,7 +53,7 @@
             <div>
                 <div id="_${sec_field}_id_"></div>
                 <script type="text/javascript">
-                    Spring.addDecoration(new Spring.ElementDecoration({elementId:'_${sec_field}_id_', widgetType:'dijit.Editor', widgetAttrs:{disabled: ${disabled}}}));
+                    Spring.addDecoration(new Spring.ElementDecoration({elementId: '_${sec_field}_id_', widgetType: 'dijit.Editor', widgetAttrs: {disabled: ${disabled}}}));
                     dojo.addOnLoad(function () {
                         var src = dojo.byId('_${sec_field}_id');
                         var rte = dijit.byId('_${sec_field}_id_');
